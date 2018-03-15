@@ -1,0 +1,116 @@
+commit 06c2182a3d9b18f639d9cde77e8ea25aa4304c05
+Author: anttkukk <antti.kukkola@helsinki.fi>
+Date:   Wed Mar 14 19:37:37 2018 +0200
+
+    kyllä kelpaa ilman file ykköstä
+
+ tiedostoja/file1  | 0
+ tiedostoja/file2  | 0
+ tiedostoja/file22 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 9d96499d451e3911bb43c693d6a1482c6814847f
+Author: anttkukk <antti.kukkola@helsinki.fi>
+Date:   Wed Mar 14 19:28:17 2018 +0200
+
+    tiedostoja
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 2d37282d0a5c66c3830759b1d583b0632ea83b83
+Author: anttkukk <antti.kukkola@helsinki.fi>
+Date:   Wed Mar 14 19:15:56 2018 +0200
+
+    molempiin muutoksia
+
+ eka.txt    | 3 +--
+ kolmas.txt | 2 +-
+ 2 files changed, 2 insertions(+), 3 deletions(-)
+
+commit 43fbe4cb650b23f3160b0f2494214010d315d75f
+Author: anttkukk <antti.kukkola@helsinki.fi>
+Date:   Wed Mar 14 18:34:57 2018 +0200
+
+    tiedosto nyt eka
+
+ eka.txt      | 28 ++++++++++++++++++++++++++++
+ tiedosto.txt | 28 ----------------------------
+ 2 files changed, 28 insertions(+), 28 deletions(-)
+
+commit 7a636f1c6d3adc81f68b18c716661362c0c56e3d
+Author: anttkukk <antti.kukkola@helsinki.fi>
+Date:   Wed Mar 14 18:33:35 2018 +0200
+
+    toinen poistettu
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit cef67d66472b3dfd1c42776cedf9f02f0ab09a91
+Author: anttkukk <antti.kukkola@helsinki.fi>
+Date:   Wed Mar 14 18:04:14 2018 +0200
+
+    lisään nyt tkstiä poisatmisen jälkeen
+
+ tiedosto.txt | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
+
+commit 94ab6f44101441f21d82fecee2d8cad90c027744
+Author: anttkukk <antti.kukkola@helsinki.fi>
+Date:   Wed Mar 14 17:59:49 2018 +0200
+
+    paljon tekstiä
+
+ tiedosto.txt | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+
+commit b1ec7ac3be5d08dea3101a76eb4c54b94ea694a3
+Author: anttkukk <antti.kukkola@helsinki.fi>
+Date:   Wed Mar 14 15:57:53 2018 +0200
+
+    stuff lisätty
+
+ stuff/kakkaalumella.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit bf7ae48d1b41dc7ef1d99986ddc359140205d88e
+Author: anttkukk <antti.kukkola@helsinki.fi>
+Date:   Wed Mar 14 15:50:43 2018 +0200
+
+    juujuu
+
+ kolmas.txt | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit 694d09c56f6cefabbdb8fefe0a0054b85d1492ae
+Author: anttkukk <antti.kukkola@helsinki.fi>
+Date:   Wed Mar 14 15:48:59 2018 +0200
+
+    lisäsin kolmannen
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 287e3bba639cc53743696aee7b6d56002dc54088
+Author: anttkukk <antti.kukkola@helsinki.fi>
+Date:   Wed Mar 14 15:37:00 2018 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit 1b80de2403b349d96c9bf7a2e118bef65cc3e074
+Author: anttkukk <antti.kukkola@helsinki.fi>
+Date:   Wed Mar 14 15:32:33 2018 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
