@@ -1,6 +1,8 @@
-# Otm-harjoitustyo
+# Otm-harjoitustyö
 > Trying is the first step to failure
 > - Homer Simpson
+
+tehdäämpä vähä epäsynkronisaatiota KJEHKJEH
 
 ## Tehtävät
 ### Viikko1
