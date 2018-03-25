@@ -13,11 +13,11 @@ tehdäämpä vähä epäsynkronisaatiota KJEHKJEH
 ### Viikko2
 [viikko2](https://github.com/anttkukk/otm-harjoitustyo/tree/master/laskarit/viikko2)
 
-Netbeans projektit:
+##### Netbeans projektit:
 
 [Maksukortti](https://github.com/anttkukk/otm-harjoitustyo/tree/master/laskarit/viikko2/Maksukortti)
 
 [Unicafe](https://github.com/anttkukk/otm-harjoitustyo/tree/master/laskarit/viikko2/Unicafe)
 
-Kattavuusraportti :ok_hand:
+##### Kattavuusraportti :ok_hand:
 ![Kattavuusraportti](https://raw.githubusercontent.com/anttkukk/otm-harjoitustyo/master/laskarit/viikko2/kattavuusraportti.png)
