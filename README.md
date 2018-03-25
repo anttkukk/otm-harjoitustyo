@@ -15,6 +15,7 @@ tehdäämpä vähä epäsynkronisaatiota KJEHKJEH
 
 Netbeans projektit:
 [Maksukortti](https://github.com/anttkukk/otm-harjoitustyo/tree/master/laskarit/viikko2/Maksukortti)
+
 [Unicafe](https://github.com/anttkukk/otm-harjoitustyo/tree/master/laskarit/viikko2/Unicafe)
 
 Kattavuusraportti
