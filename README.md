@@ -20,4 +20,4 @@ tehdäämpä vähä epäsynkronisaatiota KJEHKJEH
 [Unicafe](https://github.com/anttkukk/otm-harjoitustyo/tree/master/laskarit/viikko2/Unicafe)
 
 ##### Kattavuusraportti :ok_hand:
-![Kattavuusraportti](https://raw.githubusercontent.com/anttkukk/otm-harjoitustyo/master/laskarit/viikko2/kattavuusraportti.png)
+![Kattavuusraportti](https://github.com/anttkukk/otm-harjoitustyo/blob/master/laskarit/viikko2/kattavuusraportti.png)
