@@ -9,3 +9,7 @@ tehdäämpä vähä epäsynkronisaatiota KJEHKJEH
 [komentorivi.txt](https://github.com/anttkukk/otm-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
 
 [gitlog.txt](https://github.com/anttkukk/otm-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
+
+### Viikko2
+Kattavuusraportti
+![Kattavuusraportti](https://raw.githubusercontent.com/anttkukk/otm-harjoitustyo/master/laskarit/viikko2/kattavuusraportti.png)
