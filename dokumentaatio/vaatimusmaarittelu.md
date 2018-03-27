@@ -21,3 +21,5 @@ Sovellus varoittaa, jos luotu järjestelmä on hyvin selkeästi epästabiili
 Simulaatioon napit, joita painamalla simulaation nopeutta voi hidastaa tai nopeuttaa. Nopeutus aiheuttaa oletettavasti epätarkkuutta järjestelmässä ja voi siksi heittää joitain kappaleita hiiteen järjestelmästä, joten ohjelma varoittaa tästä. 
 
 Mahdollisesti luoda uusi järjestelmä valitsemalla luotujen kappaleiden listasta kappaleita. 
+
+Kappaleiden värin voisi asettaa kappaletta luodessa
