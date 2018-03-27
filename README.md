@@ -6,7 +6,7 @@ tehdäämpä vähä epäsynkronisaatiota KJEHKJEH
 
 # Harjoitustyö
 
-### Dokumentaatio
+### [Dokumentaatio](https://github.com/anttkukk/otm-harjoitustyo/tree/master/dokumentaatio)
 
 [Dokumentaatio kansio](https://github.com/anttkukk/otm-harjoitustyo/tree/master/dokumentaatio)
 
