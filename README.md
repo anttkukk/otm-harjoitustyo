@@ -4,6 +4,16 @@
 
 tehdäämpä vähä epäsynkronisaatiota KJEHKJEH
 
+# Harjoitustyö
+
+### Dokumentaatio
+
+[Dokumentaatio kansio](https://github.com/anttkukk/otm-harjoitustyo/tree/master/dokumentaatio)
+
+[Vaatimusmäärittely](https://github.com/anttkukk/otm-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittelu.md)
+
+[Tuntikirjanpito](https://github.com/anttkukk/otm-harjoitustyo/blob/master/dokumentaatio/tyoaikakirjanpito.md)
+
 ## Tehtävät
 ### Viikko1
 [komentorivi.txt](https://github.com/anttkukk/otm-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
