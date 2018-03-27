@@ -13,7 +13,7 @@ Simulaation käynnissä ollessa ohjelma tulostaa kappaleiden paikkoja ylhäält�
 
 Kuvassa kuvattu alustavaa käyttöjärjestelmän ideaa
 
-![Luonnos](https://github.com/anttkukk/otm-harjoitustyo/blob/master/dokumentaatio/kayttojarjestelma.jpeg)
+![Luonnos](https://github.com/anttkukk/otm-harjoitustyo/blob/master/dokumentaatio/kayttis.jpeg)
 ## Jatkokehitys
 
 Sovellus varoittaa, jos luotu järjestelmä on hyvin selkeästi epästabiili
