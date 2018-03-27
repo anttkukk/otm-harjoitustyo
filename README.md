@@ -8,8 +8,6 @@ tehdäämpä vähä epäsynkronisaatiota KJEHKJEH
 
 ### [Dokumentaatio](https://github.com/anttkukk/otm-harjoitustyo/tree/master/dokumentaatio)
 
-[Dokumentaatio kansio](https://github.com/anttkukk/otm-harjoitustyo/tree/master/dokumentaatio)
-
 [Vaatimusmäärittely](https://github.com/anttkukk/otm-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittelu.md)
 
 [Tuntikirjanpito](https://github.com/anttkukk/otm-harjoitustyo/blob/master/dokumentaatio/tyoaikakirjanpito.md)
