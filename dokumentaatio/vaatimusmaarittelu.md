@@ -9,7 +9,13 @@ Aluksi käyttäjä valitsee valikosta aloittaa simulaation. Tämän jälkeen kä
 
 Simulaation käynnissä ollessa ohjelma tulostaa kappaleiden paikkoja ylhäältä päin katsottuna. 
 
-### Jatkokehitys
+## Käyttöjärjestelmä luonnos
+
+Kuvassa kuvattu alustavaa käyttöjärjestelmän ideaa
+
+![Luonnos]
+(https://github.com/anttkukk/otm-harjoitustyo/blob/master/dokumentaatio/kayttojarjestelma.jpeg)
+## Jatkokehitys
 
 Sovellus varoittaa, jos luotu järjestelmä on hyvin selkeästi epästabiili
 
