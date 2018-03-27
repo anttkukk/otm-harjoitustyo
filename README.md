@@ -4,7 +4,7 @@
 
 tehdäämpä vähä epäsynkronisaatiota KJEHKJEH
 
-# Harjoitustyö
+## Harjoitustyö
 
 ### [Dokumentaatio](https://github.com/anttkukk/otm-harjoitustyo/tree/master/dokumentaatio)
 
