@@ -20,7 +20,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -56,6 +58,10 @@ public class PlanetSystemSimulation extends Application {
     double createVelX = 0;
     double createVelY = 0;
     boolean createMode = false;
+    boolean draw = false;
+    double change_x = 0;
+    double change_y = 0;
+    int circlesSize = 0;
 
     public static void main(String[] args) {
         launch(PlanetSystemSimulation.class);
@@ -65,15 +71,15 @@ public class PlanetSystemSimulation extends Application {
     public void start(Stage window) {
 
         //Planet name change to body? because sun, moon and chury are not planets
-        Planet sun = new Planet("Sun", 0, 0, 0, 0, 1.989E30, Color.YELLOW);
+        Planet sun = new Planet("Sun", 0, 0, 0, 0, 1.989E30, Color.YELLOW, 4);
         //Planet earth = new Planet("Earth", 7.649815710400691E10, 1.2825871174194992E11, -25608.972746907584, 15340.707015973465, 5.974E24, Color.BLUE);
-        Planet earth = new Planet("Earth", 1.521E11, 0, 0, 29290, 5.97237E24, Color.BLUE);
-        Planet mars = new Planet("Mars", 2.279392E11, 0, 0, 24077, 6.4171E23, Color.TOMATO);
-        Planet moon = new Planet("Moon", 1.52484399E11, 0, 0, 30312, 7.342E22, Color.GREY);
-        Planet venus = new Planet("Venus", 1.08208E11, 0, 0, 35020, 4.8675E24, Color.GOLDENROD);
-        Planet mercury = new Planet("Mercury", 5.790905E10, 0, 0, 47362, 3.3011E23, Color.GREY);
-        Planet jupiter = new Planet("Jupiter", 7.78412E11, 0, 0, 13070, 1.899E27, Color.LIGHTSALMON);
-        Planet callisto = new Planet("Callisto", 7.802947E11, 0, 0, 21274, 1.075938E23, Color.GREY);
+        Planet earth = new Planet("Earth", 1.521E11, 0, 0, 29290, 5.97237E24, Color.BLUE, 3);
+        Planet mars = new Planet("Mars", 2.279392E11, 0, 0, 24077, 6.4171E23, Color.TOMATO, 3);
+        Planet moon = new Planet("Moon", 1.52484399E11, 0, 0, 30312, 7.342E22, Color.GREY, 2);
+        Planet venus = new Planet("Venus", 1.08208E11, 0, 0, 35020, 4.8675E24, Color.GOLDENROD, 3);
+        Planet mercury = new Planet("Mercury", 5.790905E10, 0, 0, 47362, 3.3011E23, Color.GREY, 3);
+        Planet jupiter = new Planet("Jupiter", 7.78412E11, 0, 0, 13070, 1.899E27, Color.LIGHTSALMON, 3);
+        Planet callisto = new Planet("Callisto", 7.802947E11, 0, 0, 21274, 1.075938E23, Color.GREY, 3);
         //Planet tuhoaja = new Planet(1E12, 0, 0, 10000, 7.322E29);
 
         Planet Churyomov = new Planet("67P/Churyumov–Gerasimenko", 1.8598E11, 0, 0, 34220, 0);
@@ -93,6 +99,7 @@ public class PlanetSystemSimulation extends Application {
             Circle circle = makeCircle(p);
             circles.add(circle);
         }
+        circlesSize = circles.size();
 
         Canvas canvas = new Canvas(width, height);
         GraphicsContext drawer = canvas.getGraphicsContext2D();
@@ -149,15 +156,18 @@ public class PlanetSystemSimulation extends Application {
                     drawer.fillText(day + " days\n" + year + " years\n" + "timestep: " + dstep + " h", time_x, time_y);
 
                 }
+                if (createMode) {
+                    drawer.fillText("Create mode", time_x, time_y - 14);
+                    if (draw) {
+//                        drawer.setStroke(Color.WHITE);
+//                        drawer.strokeLine(mouse_x, mouse_y, change_x, change_y);
 
+                    }
+                }
+                int i = 0;
                 for (Planet p : planets) {
-
-                    int i = 0;
                     drawer.setFill(p.getColor());
-                    //Kuun plottaus poista aikanaan !!!!!!!!!!!!
-                    if (p.getMass() == 7.342E22 || p.getMass() == 1.075938E23) {
-                        drawer.fillOval(midWidth + p.getPos().getX() / standard, midHeight + p.getPos().getY() / standard, 3, 3);
-                    } else if (p.getMass() == 1.899E27 && spoopy) {
+                    if (p.getMass() == 1.899E27 && spoopy) {
 
                         drawer.drawImage(ussr, midWidth + p.getPos().getX() / standard, midHeight + p.getPos().getY() / standard, 430, 400);
 
@@ -165,30 +175,34 @@ public class PlanetSystemSimulation extends Application {
                     } else if (spoopy) {
                         drawer.drawImage(uusr, midWidth + p.getPos().getX() / standard, midHeight + p.getPos().getY() / standard, 300, 300);
                     } else {
+                        //drawer.fillOval(midWidth + p.getPos().getX() / standard - 2, midHeight + p.getPos().getY() / standard - 2, 5, 5);
+                        circles.get(i).setCenterX(midWidth + p.getPos().getX() / standard);
+                        circles.get(i).setCenterY(midHeight + p.getPos().getY() / standard);
 
-                        drawer.fillOval(midWidth + p.getPos().getX() / standard - 2, midHeight + p.getPos().getY() / standard - 2, 5, 5);
                     }
                     i++;
                 }
                 this.prev = now;
                 starsystem.Update(timestep);
+                if (circlesSize < circles.size()) {
+                    layout.getChildren().add(circles.get(circles.size() - 1));
+                    circlesSize = circles.size();
+                }
             }
 
         }.start();
-        //layout.getChildren().addAll(circles);
+        System.out.println("tänne ei mennä");
+        layout.getChildren().addAll(circles);
         Scene scene = new Scene(layout);
         window.setScene(scene);
         window.show();
 
         //MOVE CANVAS
-        
-        if (createMode) {
-            create(canvas);
-        } else {
-            canvas.setOnMouseMoved(e -> mouseCoord(e));
-            dragScreen(canvas);
-            clickPlanets(canvas);
-        }
+        canvas.setOnMouseMoved(e -> mouseCoord(e));
+        dragScreen(canvas);
+        create(canvas);
+        clickPlanets(canvas);
+
         controls(scene);
 
     }
@@ -203,18 +217,22 @@ public class PlanetSystemSimulation extends Application {
 
             @Override
             public void handle(MouseEvent e) {
-                if (e.isPrimaryButtonDown()) {
-                    double change_y = e.getSceneY() - mouse_y;
-                    midHeight += change_y;
-                    mouse_y = e.getSceneY();
-                    double change_x = e.getSceneX() - mouse_x;
-                    midWidth += change_x;
-                    mouse_x = e.getSceneX();
-                    follow = false;
-                } else if (e.isSecondaryButtonDown()) {
-                    double change_y = e.getSceneY() - mouse_y;
-                    standard += change_y * 1E7;
-                    mouse_y = e.getSceneY();
+                if (!createMode) {
+                    if (e.isPrimaryButtonDown()) {
+                        double change_y = e.getSceneY() - mouse_y;
+                        midHeight += change_y;
+                        mouse_y = e.getSceneY();
+                        double change_x = e.getSceneX() - mouse_x;
+                        midWidth += change_x;
+                        mouse_x = e.getSceneX();
+                        follow = false;
+                    } else if (e.isSecondaryButtonDown()) {
+                        double change_y = e.getSceneY() - mouse_y;
+                        if (standard + change_y * 1E7 > 1E6) {
+                            standard += change_y * 1E7;
+                        }
+                        mouse_y = e.getSceneY();
+                    }
                 }
 
             }
@@ -225,26 +243,34 @@ public class PlanetSystemSimulation extends Application {
         canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                if (e.getButton() == MouseButton.PRIMARY) {
-                    createX = (e.getSceneX() - midWidth) * standard;
-                    createY = (e.getSceneY() - midHeight) * standard;
-                    mouse_x = e.getSceneX();
-                    mouse_y = e.getSceneY();
+                if (createMode) {
+                    if (e.getButton() == MouseButton.PRIMARY) {
+                        createX = (e.getSceneX() - midWidth) * standard;
+                        createY = (e.getSceneY() - midHeight) * standard;
+                        mouse_x = e.getSceneX();
+                        mouse_y = e.getSceneY();
+                        //line.setVisible(true);
+                        draw = true;
+                    }
                 }
-
             }
         });
         canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, new EventHandler<MouseEvent>() {
 
             @Override
             public void handle(MouseEvent e) {
-                if (e.getButton() == MouseButton.PRIMARY) {
-                    double change_y = e.getSceneY() - mouse_y;
-                    createVelY = -change_y * 200;
-                    double change_x = e.getSceneX() - mouse_x;
-                    createVelX = -change_x * 200;
-                    Planet newP = new Planet(null, createX, createY, createVelX, createVelY, 0);
-                    planets.add(newP);
+                if (createMode) {
+                    if (e.getButton() == MouseButton.PRIMARY) {
+                        change_y = e.getSceneY() - mouse_y;
+                        createVelY = -change_y * 200;
+                        change_x = e.getSceneX() - mouse_x;
+                        createVelX = -change_x * 200;
+                        Planet newP = new Planet(null, createX, createY, createVelX, createVelY, 0);
+                        planets.add(newP);
+                        circles.add(makeCircle(newP));
+                        //line.setVisible(false);
+                        draw = false;
+                    }
                 }
 
             }
@@ -257,21 +283,26 @@ public class PlanetSystemSimulation extends Application {
 
             @Override
             public void handle(MouseEvent e) {
-                int i = 0;
-                for (Planet p : planets) {
-                    double posX = midWidth + p.getPos().getX() / standard - 2;
-                    double posY = midHeight + p.getPos().getY() / standard - 2;
-                    if (e.getSceneX() > posX && e.getSceneX() < posX + 5 && e.getSceneY() > posY && e.getSceneY() < posY + 5) {
-                        followId = i;
-                        follow = true;
+                if (!createMode && timestep == 1) {
+                    int i = 0;
+                    for (Planet p : planets) {
+                        double posX = midWidth + p.getPos().getX() / standard - 2;
+                        double posY = midHeight + p.getPos().getY() / standard - 2;
+                        if (e.getSceneX() > posX && e.getSceneX() < posX + 5 && e.getSceneY() > posY && e.getSceneY() < posY + 5) {
+                            followId = i;
+                            follow = true;
+                        }
 
+                        i++;
                     }
-
-                    i++;
                 }
-
             }
         });
+
+    }
+
+    private void followPlanet() {
+
     }
 
     private void controls(Scene scene) {
@@ -310,15 +341,28 @@ public class PlanetSystemSimulation extends Application {
                 spoopy = !spoopy;
             }
             if (e.getCode() == KeyCode.C) {
-                System.out.println("ei taida toimia");
                 createMode = !createMode;
+                follow = false;
             }
+
         });
     }
 
     private Circle makeCircle(Planet p) {
-        Circle circle = new Circle(width / 2 + p.getPos().getX() / standard, height / 2 + p.getPos().getY() / standard, 3);
+        Circle circle = new Circle(width / 2 + p.getPos().getX() / standard, height / 2 + p.getPos().getY() / standard, p.getDrawSize());
         circle.setFill(p.getColor());
+        circle.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+            int i = 0;
+            for (Planet planet : planets) {
+                if (p.equals(planet)) {
+                    followId = i;
+                    follow = true;
+                }
+                i++;
+            }
+
+        });
+        
         return circle;
 
     }

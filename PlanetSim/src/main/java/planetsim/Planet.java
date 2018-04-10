@@ -22,6 +22,7 @@ public class Planet {
     private Vector oldacc;
     private Color color;
     private String name;
+    private int drawSize;
 
     public Planet(String name, double pos_x, double pos_y, double vel_x, double vel_y, double mass) {
         this.pos = new Vector(pos_x, pos_y);
@@ -32,6 +33,7 @@ public class Planet {
         Random r = new Random();
         this.color = Color.rgb(r.nextInt(255), r.nextInt(255), r.nextInt(255));
         this.name = name;
+        this.drawSize = 2;
     }
 
     public Planet(String name, double pos_x, double pos_y, double vel_x, double vel_y, double mass, Color color) {
@@ -42,6 +44,18 @@ public class Planet {
         this.oldacc = new Vector(0.0, 0.0);
         this.color = color;
         this.name = name;
+        this.drawSize = 3;
+    }
+    public Planet(String name, double pos_x, double pos_y, double vel_x, double vel_y, double mass, Color color, int drawSize) {
+        this.pos = new Vector(pos_x, pos_y);
+        this.vel = new Vector(vel_x, vel_y);
+        this.mass = mass;
+        this.acc = new Vector(0.0, 0.0);
+        this.oldacc = new Vector(0.0, 0.0);
+        Random r = new Random();
+        this.color = color;
+        this.name = name;
+        this.drawSize = drawSize;
     }
     
 
@@ -137,6 +151,15 @@ public class Planet {
     public void setName(String name) {
         this.name = name;
     }
+
+    public int getDrawSize() {
+        return drawSize;
+    }
+
+    public void setDrawSize(int drawSize) {
+        this.drawSize = drawSize;
+    }
+    
     
     
     
