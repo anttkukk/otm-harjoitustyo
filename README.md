@@ -1,8 +1,5 @@
-# Otm-harjoitustyö
-> Trying is the first step to failure
-> - Homer Simpson
+# Otm-harjoitustyö: N-kappaleen planeettakunta simulaattori
 
-tehdäämpä vähä epäsynkronisaatiota KJEHKJEH
 
 ## Harjoitustyö
 
@@ -11,21 +8,31 @@ tehdäämpä vähä epäsynkronisaatiota KJEHKJEH
 [Vaatimusmäärittely](https://github.com/anttkukk/otm-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittelu.md)
 
 [Tuntikirjanpito](https://github.com/anttkukk/otm-harjoitustyo/blob/master/dokumentaatio/tyoaikakirjanpito.md)
+ ### Komentorivikomennot
+ Testit suoritetaan komennolla 
+ 
+ `mvn test`
+ 
+ Testikattavuusraportti luodaan komennolla
+ 
+ `mvn test jacoco:report`
+ 
+ Kattavuusraporttia voi tarkastella avaamalla selaimella tiedosto target/site/jacoco/index.html
 
-## Tehtävät
-### Viikko1
-[komentorivi.txt](https://github.com/anttkukk/otm-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
+#### Käyttäminen
+Ohjelman voi käynnistää joko painamalla netbeansin projektin ajo nappia tai komentorivi komennolla
 
-[gitlog.txt](https://github.com/anttkukk/otm-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
+`mvn compile exec:java -Dexec.mainClass=planetsim.PlanetSystemSimulation`
 
-### Viikko2
-[viikko2](https://github.com/anttkukk/otm-harjoitustyo/tree/master/laskarit/viikko2)
+Ohjelmassa käynnistyy heti simulaatio. Kuvaa voi liikuttaa painamalla pohjassa hiiren vasenta nappia ja vetämällä tai zoomata painamalla hiiren vasenta nappia ja vetämällä. Painamalla hiirellä planeettaa valitaan planeetta kohteeksi ja kamera keskittyy siihen. 
 
-##### Netbeans projektit:
+Ohjelmassa on myös näppäimiä:
+R | Palauttaa alkuperäisen kuvakulman
+, | Jakaa timestepin kymmenellä
+. | Kertoo timestepin kymmenellä
+Space | palauttaa alkuperäisen timestepin
+P | Pausettaa/jatkaa simulaation
+B | Kääntää timestepin käänteiseksi
+1 | Keskittää ruudun viimeisimpään kohteeseen
 
-[Maksukortti](https://github.com/anttkukk/otm-harjoitustyo/tree/master/laskarit/viikko2/Maksukortti)
-
-[Unicafe](https://github.com/anttkukk/otm-harjoitustyo/tree/master/laskarit/viikko2/Unicafe)
-
-##### Kattavuusraportti :ok_hand:
-![Kattavuusraportti](https://github.com/anttkukk/otm-harjoitustyo/blob/master/laskarit/viikko2/kattavuusraportti.png)
+Painamalla C ohjelma siirtyy luomismoodiin, jossa hiiren painaminen luo uusia painottomia pienkappaleita. Kappaleen nopeus määrätään hiiren painalluksen ja päästön välinen pikselimäärä kerrottuna -200.
