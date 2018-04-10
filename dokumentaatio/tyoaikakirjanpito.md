@@ -5,3 +5,4 @@
 | 4.4       | 3h | tein graafisen osuuden itse simulaatiolle|
 | 8.4       | 5h | parantelin simulaatiota |
 | 9.4       | 2h | parantelin simulaatiota |
+| 10.4      | 2h | parantelin simulaatiota |
