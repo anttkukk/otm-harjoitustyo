@@ -27,14 +27,14 @@ Ohjelman voi käynnistää joko painamalla netbeansin projektin ajo nappia tai k
 Ohjelmassa käynnistyy heti simulaatio. Kuvaa voi liikuttaa painamalla pohjassa hiiren vasenta nappia ja vetämällä tai zoomata painamalla hiiren vasenta nappia ja vetämällä. Painamalla hiirellä planeettaa valitaan planeetta kohteeksi ja kamera keskittyy siihen. 
 
 Ohjelmassa on myös näppäimiä:
-|Näppäin | Toiminto|
+| Näppäin | Toiminto |
 |---------|---------|
-|R | Palauttaa alkuperäisen kuvakulman|
-|, | Jakaa timestepin kymmenellä|
-|. | Kertoo timestepin kymmenellä|
-|Space | palauttaa alkuperäisen timestepin|
-|P | Pausettaa/jatkaa simulaation|
-|B | Kääntää timestepin käänteiseksi|
-|1 | Keskittää ruudun viimeisimpään kohteeseen|
+| R | Palauttaa alkuperäisen kuvakulman |
+| , | Jakaa timestepin kymmenellä |
+| . | Kertoo timestepin kymmenellä |
+| Space | palauttaa alkuperäisen timestepin |
+| P | Pausettaa/jatkaa simulaation |
+| B | Kääntää timestepin käänteiseksi |
+| 1 | Keskittää ruudun viimeisimpään kohteeseen |
 
 Painamalla C ohjelma siirtyy luomismoodiin, jossa hiiren painaminen luo uusia painottomia pienkappaleita. Kappaleen nopeus määrätään hiiren painalluksen ja päästön välinen pikselimäärä kerrottuna -200.
