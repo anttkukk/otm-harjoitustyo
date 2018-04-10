@@ -28,7 +28,7 @@ Ohjelmassa käynnistyy heti simulaatio. Kuvaa voi liikuttaa painamalla pohjassa 
 
 Ohjelmassa on myös näppäimiä:
 |Näppäin | Toiminto|
-|––––––––––|––––––––––|
+|---------|---------|
 |R | Palauttaa alkuperäisen kuvakulman|
 |, | Jakaa timestepin kymmenellä|
 |. | Kertoo timestepin kymmenellä|
