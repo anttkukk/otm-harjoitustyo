@@ -195,7 +195,6 @@ public class PlanetSystemSimulation extends Application {
             }
 
         }.start();
-        System.out.println("tänne ei mennä");
         layout.getChildren().addAll(circles);
         Scene scene = new Scene(layout);
         window.setScene(scene);
