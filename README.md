@@ -41,4 +41,4 @@ Ohjelmassa on myös näppäimiä:
 | 1 | Keskittää ruudun viimeisimpään kohteeseen |
 
 
-Painamalla C ohjelma siirtyy luomismoodiin, jossa hiiren painaminen luo uusia painottomia pienkappaleita. Kappaleen nopeus määrätään hiiren painalluksen ja päästön välinen pikselimäärä kerrottuna -200.
+Painamalla C ohjelma siirtyy luomismoodiin, jossa hiiren painaminen luo uusia pieni massaisia pienkappaleita. Kappaleen nopeus määrätään hiiren painalluksen ja päästön välinen pikselimäärä kerrottuna -200.
