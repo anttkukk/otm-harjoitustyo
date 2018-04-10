@@ -159,8 +159,12 @@ public class PlanetSystemSimulation extends Application {
                 if (createMode) {
                     drawer.fillText("Create mode", time_x, time_y - 14);
                     if (draw) {
-//                        drawer.setStroke(Color.WHITE);
-//                        drawer.strokeLine(mouse_x, mouse_y, change_x, change_y);
+                        double x = mouse_x;
+                        double y = mouse_y;
+                        drawer.setStroke(Color.WHITE);
+                        drawer.strokeLine(mouse_x, mouse_y, mouse_x - change_x, mouse_y - change_y);
+                        String txt = String.format("%.01f", new Vector(change_x, change_y).length() * 0.2);
+                        drawer.fillText(txt + " km/s", x + 30, y);
 
                     }
                 }
@@ -233,6 +237,9 @@ public class PlanetSystemSimulation extends Application {
                         }
                         mouse_y = e.getSceneY();
                     }
+                }else if (createMode){
+                    change_x = e.getSceneX() - mouse_x;
+                    change_y = e.getSceneY() - mouse_y;
                 }
 
             }
@@ -283,7 +290,7 @@ public class PlanetSystemSimulation extends Application {
 
             @Override
             public void handle(MouseEvent e) {
-                if (!createMode && timestep == 1) {
+                if (!createMode) {
                     int i = 0;
                     for (Planet p : planets) {
                         double posX = midWidth + p.getPos().getX() / standard - 2;
