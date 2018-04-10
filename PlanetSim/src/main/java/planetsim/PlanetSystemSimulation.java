@@ -15,6 +15,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -50,6 +51,11 @@ public class PlanetSystemSimulation extends Application {
     boolean spoopy = false;
     ArrayList<Circle> circles = new ArrayList<>();
     int followId = 1;
+    double createX = 0;
+    double createY = 0;
+    double createVelX = 0;
+    double createVelY = 0;
+    boolean createMode = false;
 
     public static void main(String[] args) {
         launch(PlanetSystemSimulation.class);
@@ -143,7 +149,9 @@ public class PlanetSystemSimulation extends Application {
                     drawer.fillText(day + " days\n" + year + " years\n" + "timestep: " + dstep + " h", time_x, time_y);
 
                 }
+
                 for (Planet p : planets) {
+
                     int i = 0;
                     drawer.setFill(p.getColor());
                     //Kuun plottaus poista aikanaan !!!!!!!!!!!!
@@ -173,10 +181,15 @@ public class PlanetSystemSimulation extends Application {
         window.show();
 
         //MOVE CANVAS
-        canvas.setOnMouseMoved(e -> mouseCoord(e));
-        dragScreen(canvas);
+        
+        if (createMode) {
+            create(canvas);
+        } else {
+            canvas.setOnMouseMoved(e -> mouseCoord(e));
+            dragScreen(canvas);
+            clickPlanets(canvas);
+        }
         controls(scene);
-        clickPlanets(canvas);
 
     }
 
@@ -206,6 +219,37 @@ public class PlanetSystemSimulation extends Application {
 
             }
         });
+    }
+
+    private void create(Canvas canvas) {
+        canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                if (e.getButton() == MouseButton.PRIMARY) {
+                    createX = (e.getSceneX() - midWidth) * standard;
+                    createY = (e.getSceneY() - midHeight) * standard;
+                    mouse_x = e.getSceneX();
+                    mouse_y = e.getSceneY();
+                }
+
+            }
+        });
+        canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent e) {
+                if (e.getButton() == MouseButton.PRIMARY) {
+                    double change_y = e.getSceneY() - mouse_y;
+                    createVelY = -change_y * 200;
+                    double change_x = e.getSceneX() - mouse_x;
+                    createVelX = -change_x * 200;
+                    Planet newP = new Planet(null, createX, createY, createVelX, createVelY, 0);
+                    planets.add(newP);
+                }
+
+            }
+        });
+
     }
 
     private void clickPlanets(Canvas canvas) {
@@ -264,6 +308,10 @@ public class PlanetSystemSimulation extends Application {
             }
             if (e.getCode() == KeyCode.S) {
                 spoopy = !spoopy;
+            }
+            if (e.getCode() == KeyCode.C) {
+                System.out.println("ei taida toimia");
+                createMode = !createMode;
             }
         });
     }
