@@ -27,6 +27,13 @@ Ohjelman voi käynnistää joko painamalla netbeansin projektin ajo nappia tai k
 Ohjelmassa käynnistyy heti simulaatio. Kuvaa voi liikuttaa painamalla pohjassa hiiren vasenta nappia ja vetämällä tai zoomata painamalla hiiren vasenta nappia ja vetämällä. Painamalla hiirellä planeettaa valitaan planeetta kohteeksi ja kamera keskittyy siihen. 
 
 Ohjelmassa on myös näppäimiä:
+| Tables        | Are           | 
+| ------------- |:-------------:| 
+| col 3 is      | right-aligned | 
+| col 2 is      | centered      | 
+| zebra stripes | are neat      | 
+
+
 | Näppäin | Toiminto |
 |---------|---------|
 | R | Palauttaa alkuperäisen kuvakulman |
