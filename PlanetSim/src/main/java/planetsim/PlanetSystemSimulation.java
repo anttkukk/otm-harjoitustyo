@@ -50,9 +50,11 @@ public class PlanetSystemSimulation extends Application {
     Integer ogTimestep = timestep;
     Integer normalTimestep = timestep;
     boolean follow = false;
+    boolean subTarget = false;
     boolean spoopy = false;
     ArrayList<Circle> circles = new ArrayList<>();
     int followId = 1;
+    int subTargetId = 1;
     double createX = 0;
     double createY = 0;
     double createVelX = 0;
@@ -146,11 +148,32 @@ public class PlanetSystemSimulation extends Application {
                 String day = String.format("%.00f", days);
                 String dstep = String.format("%.00f", dt);
 
+                drawer.setStroke(Color.WHITE);
+                drawer.strokeLine(width * 1 / 3, height * 7 / 8, width * 1 / 3 + 99.7, height * 7 / 8);
+                drawer.strokeLine(width * 1 / 3, height * 7 / 8 - 2, width * 1 / 3, height * 7 / 8 + 2);
+                drawer.strokeLine(width * 1 / 3 + 99.7, height * 7 / 8 - 2, width * 1 / 3 + 99.7, height * 7 / 8 + 2);
+                String string = String.format("%.02f", 99.7 * standard / (1.495978707E11));
+                drawer.fillText(string + " au", width * 1 / 3 + 25, height * 7 / 8 - 20);
+
                 //Follow earth
                 if (follow) {
                     midWidth = width / 2 - planets.get(followId).getPos().getX() / standard;
                     midHeight = height / 2 - planets.get(followId).getPos().getY() / standard;
                     drawer.fillText(day + " days\n" + year + " years\n" + "timestep: " + dstep + " h\nTarget: " + planets.get(followId).getName(), time_x, time_y);
+                    if (subTarget) {
+                        drawer.fillText("Subtarget: " + planets.get(subTargetId).getName(), time_x, time_y + 60);
+                        double distance = planets.get(followId).distance(planets.get(subTargetId));
+                        String str = "";
+                        if (distance / 1.495978707E11 < 0.1) {
+                            str = String.format("%.0f", distance/1000) + " km";
+                            
+                        } else {
+                            str = String.format("%.02f", distance / 1.495978707E11) + " au";
+                            
+                        }
+                        drawer.fillText("Distance: " + str, time_x, time_y + 74);
+                        drawer.strokeLine(midWidth + planets.get(followId).getPos().getX() / standard, midHeight + planets.get(followId).getPos().getY() / standard, midWidth + planets.get(subTargetId).getPos().getX() / standard, midHeight + planets.get(subTargetId).getPos().getY() / standard);
+                    }
 
                 } else {
                     drawer.fillText(day + " days\n" + year + " years\n" + "timestep: " + dstep + " h", time_x, time_y);
@@ -220,8 +243,9 @@ public class PlanetSystemSimulation extends Application {
 
             @Override
             public void handle(MouseEvent e) {
-                if (!createMode) {
-                    if (e.isPrimaryButtonDown()) {
+
+                if (e.isPrimaryButtonDown()) {
+                    if (!createMode) {
                         double change_y = e.getSceneY() - mouse_y;
                         midHeight += change_y;
                         mouse_y = e.getSceneY();
@@ -229,14 +253,15 @@ public class PlanetSystemSimulation extends Application {
                         midWidth += change_x;
                         mouse_x = e.getSceneX();
                         follow = false;
-                    } else if (e.isSecondaryButtonDown()) {
-                        double change_y = e.getSceneY() - mouse_y;
-                        if (standard + change_y * 1E7 > 1E6) {
-                            standard += change_y * 1E7;
-                        }
-                        mouse_y = e.getSceneY();
                     }
-                }else if (createMode){
+                } else if (e.isSecondaryButtonDown()) {
+                    double change_y = e.getSceneY() - mouse_y;
+                    if (standard + change_y * 1E7 > 1E6) {
+                        standard += change_y * 1E7;
+                    }
+                    mouse_y = e.getSceneY();
+                }
+                if (createMode) {
                     change_x = e.getSceneX() - mouse_x;
                     change_y = e.getSceneY() - mouse_y;
                 }
@@ -350,6 +375,28 @@ public class PlanetSystemSimulation extends Application {
                 createMode = !createMode;
                 follow = false;
             }
+            if (e.getCode() == KeyCode.LEFT && e.isControlDown()) {
+                if (subTargetId == 0) {
+                    subTargetId = planets.size();
+                }
+                subTargetId--;
+            } else if (e.getCode() == KeyCode.LEFT) {
+                if (followId == 0) {
+                    followId = planets.size();
+                }
+                followId--;
+            }
+            if (e.getCode() == KeyCode.RIGHT && e.isControlDown()) {
+                if (subTargetId == planets.size() - 1) {
+                    subTargetId = -1;
+                }
+                subTargetId++;
+            } else if (e.getCode() == KeyCode.RIGHT) {
+                if (followId == planets.size() - 1) {
+                    followId = -1;
+                }
+                followId++;
+            }
 
         });
     }
@@ -359,16 +406,40 @@ public class PlanetSystemSimulation extends Application {
         circle.setFill(p.getColor());
         circle.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
             int i = 0;
+            int x = 0;
             for (Planet planet : planets) {
                 if (p.equals(planet)) {
-                    followId = i;
+                    if (e.getButton() == MouseButton.PRIMARY) {
+                        if (followId == i) {
+                            follow = false;
+                            subTarget = false;
+
+                        } else {
+                            if (subTargetId == i) {
+                                subTargetId = followId;
+                            }
+                            followId = i;
+                        }
+
+                    } else if (e.getButton() == MouseButton.SECONDARY) {
+                        if (subTargetId == i) {
+                            subTarget = false;
+                        } else {
+                            subTarget = true;
+                            if (followId != i) {
+                                subTargetId = i;
+                            }
+                        }
+                    }
+
                     follow = true;
+
                 }
                 i++;
             }
 
         });
-        
+
         return circle;
 
     }

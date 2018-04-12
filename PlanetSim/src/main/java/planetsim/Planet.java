@@ -46,6 +46,7 @@ public class Planet {
         this.name = name;
         this.drawSize = 3;
     }
+
     public Planet(String name, double pos_x, double pos_y, double vel_x, double vel_y, double mass, Color color, int drawSize) {
         this.pos = new Vector(pos_x, pos_y);
         this.vel = new Vector(vel_x, vel_y);
@@ -57,7 +58,6 @@ public class Planet {
         this.name = name;
         this.drawSize = drawSize;
     }
-    
 
     public Vector getPos() {
         return pos;
@@ -67,11 +67,9 @@ public class Planet {
         return vel;
     }
 
-    
     public double getMass() {
         return mass;
     }
-
 
     public void setMass(double mass) {
         this.mass = mass;
@@ -84,27 +82,28 @@ public class Planet {
     public void setVel(Vector vel) {
         this.vel = vel;
     }
-    
-    public Vector newPos(int t){
-        
+
+    public Vector newPos(int t) {
+
         //Vector newpos = this.pos.add(this.vel.multiply(1.0*t).add(this.oldacc.multiply(1.0/2.0*Math.pow(t, 2))));
-        Vector newpos = this.pos.add(this.vel.multiply(1.0*t));
+        Vector newpos = this.pos.add(this.vel.multiply(1.0 * t));
 
         return newpos;
     }
-    public Vector newAcc(ArrayList<Planet> planets){
+
+    public Vector newAcc(ArrayList<Planet> planets) {
         Vector newacc = new Vector(0.0, 0.0);
-        for(Planet planet : planets){
-            if(!planet.pos.equals(this.pos)){
+        for (Planet planet : planets) {
+            if (!planet.pos.equals(this.pos)) {
                 double dist = planet.pos.substract(this.pos).length();
                 Vector vecr = planet.pos.substract(this.pos).divide(dist);
-                newacc = newacc.add(vecr.divide(Math.pow(dist, 2)).multiply(planet.getMass()*6.674E-11));
+                newacc = newacc.add(vecr.divide(Math.pow(dist, 2)).multiply(planet.getMass() * 6.674E-11));
             }
         }
         return newacc;
     }
-    
-    public Vector newVelo(int t){
+
+    public Vector newVelo(int t) {
         //Vector newvelo = this.vel.add(this.acc.add(this.oldacc).multiply(t*1.0/2.0));
         Vector newvelo = this.vel.add(this.acc.multiply(t));
 
@@ -113,8 +112,8 @@ public class Planet {
 
     @Override
     public boolean equals(Object obj) {
-        Planet planet = (Planet)obj;
-        if(this.pos.equals(planet.pos)){
+        Planet planet = (Planet) obj;
+        if (this.pos.equals(planet.pos)) {
             return true;
         }
         return false;
@@ -160,16 +159,8 @@ public class Planet {
         this.drawSize = drawSize;
     }
     
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
+    public double distance(Planet planet){
+        return Math.sqrt(Math.pow(this.pos.getX() - planet.getPos().getX(), 2) + Math.pow(this.pos.getY() - planet.getPos().getY(), 2));
+    }
 
 }
