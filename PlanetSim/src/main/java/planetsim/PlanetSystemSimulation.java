@@ -9,15 +9,21 @@ import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.ArcType;
@@ -219,8 +225,50 @@ public class PlanetSystemSimulation extends Application {
 
         }.start();
         layout.getChildren().addAll(circles);
+        
+        //Start screen and buttons 
+        Button startBut = new Button("start!");
+        BorderPane startLayout = new BorderPane();
+        Button nappi = new Button("takaisin!");
+        Button toinen = new Button("kakka");
+        layout.getChildren().add(nappi);
+        HBox hox = new HBox(nappi,toinen);
+        hox.setLayoutX(100);
+        hox.setLayoutY(50);
+        layout.getChildren().add(hox);
         Scene scene = new Scene(layout);
-        window.setScene(scene);
+
+        startBut.setOnAction(e -> {
+            window.setScene(scene);
+            timestep = normalTimestep;
+        });
+        startLayout.setCenter(startBut);
+        Scene startScreen = new Scene(startLayout, width,height);
+        
+        
+        nappi.setOnAction(e -> {
+            window.setScene(startScreen);
+            normalTimestep = timestep;
+            timestep=0;
+        });
+        toinen.setOnAction(e -> {
+            spoopy = !spoopy;
+        });
+        
+        HBox hbox = new HBox();
+        hbox.setPadding(new Insets(1,1,1,1));
+        hbox.setSpacing(10);
+        hbox.setStyle("-fx-background-color: #336699;");
+        //hbox.getChildren().addAll(nappi, toinen);
+        StackPane stackpane = new StackPane();
+        //layout.setTop(hbox);
+//        start screen:
+        
+        
+        
+        window.setScene(startScreen);
+        
+        
         window.show();
 
         //MOVE CANVAS
@@ -423,7 +471,7 @@ public class PlanetSystemSimulation extends Application {
 
                     } else if (e.getButton() == MouseButton.SECONDARY) {
                         if (subTargetId == i) {
-                            subTarget = false;
+                            subTarget = !subTarget;
                         } else {
                             subTarget = true;
                             if (followId != i) {

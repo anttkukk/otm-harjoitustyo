@@ -43,6 +43,7 @@ public class Planet {
         this.acc = new Vector(0.0, 0.0);
         this.oldacc = new Vector(0.0, 0.0);
         this.color = color;
+        
         this.name = name;
         this.drawSize = 3;
     }
@@ -55,6 +56,7 @@ public class Planet {
         this.oldacc = new Vector(0.0, 0.0);
         Random r = new Random();
         this.color = color;
+        this.color = Color.web(color.toString());
         this.name = name;
         this.drawSize = drawSize;
     }
