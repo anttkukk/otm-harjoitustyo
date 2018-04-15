@@ -10,6 +10,7 @@ package planetsim.domain;
  * @author anttkukk
  */
 public class Vector {
+
     private double x;
     private double y;
 
@@ -33,30 +34,36 @@ public class Vector {
     public void setY(double y) {
         this.y = y;
     }
-    public Vector add(Vector v){
+
+    public Vector add(Vector v) {
         return new Vector(this.x + v.getX(), this.y + v.getY());
-        
+
     }
-    public Vector substract(Vector v){
+
+    public Vector substract(Vector v) {
         return new Vector(this.x - v.getX(), this.y - v.getY());
     }
-    public double dot(Vector v){
+
+    public double dot(Vector v) {
         return this.x * v.getX() + this.y * v.getY();
     }
-    public Vector multiply(double i){
+
+    public Vector multiply(double i) {
         return new Vector(this.x * i, this.y * i);
     }
-    public Vector divide(double i){
+
+    public Vector divide(double i) {
         return new Vector(this.x / i, this.y / i);
     }
-    public double length(){
+
+    public double length() {
         return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
     }
 
     @Override
     public boolean equals(Object obj) {
         Vector v = (Vector) obj;
-        if (this.x == v.getX() && this.y == v.getY()){
+        if (this.x == v.getX() && this.y == v.getY()) {
             return true;
         }
         return false;
@@ -67,9 +74,5 @@ public class Vector {
     public String toString() {
         return this.x + ", " + this.y;
     }
-
-    
-    
-    
 
 }

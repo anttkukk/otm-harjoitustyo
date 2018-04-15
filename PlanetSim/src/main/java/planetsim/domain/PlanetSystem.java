@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * @author anttkukk
  */
 public class PlanetSystem {
+
     private ArrayList<Planet> planets;
 
     public PlanetSystem(ArrayList<Planet> planets) {
@@ -25,14 +26,14 @@ public class PlanetSystem {
     public void setPlanets(ArrayList<Planet> planets) {
         this.planets = planets;
     }
-    
-    public void Update(int timestep){
-        for (Planet planet : planets){
+
+    public void update(int timestep) {
+        for (Planet planet : planets) {
             planet.setPos(planet.newPos(timestep));
             planet.setAcc(planet.newAcc(planets));
             planet.setVel(planet.newVelo(timestep));
             planet.setOldacc(planet.getAcc());
-            
+
         }
     }
 }

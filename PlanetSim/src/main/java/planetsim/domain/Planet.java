@@ -24,9 +24,9 @@ public class Planet {
     private String name;
     private int drawSize;
 
-    public Planet(String name, double pos_x, double pos_y, double vel_x, double vel_y, double mass) {
-        this.pos = new Vector(pos_x, pos_y);
-        this.vel = new Vector(vel_x, vel_y);
+    public Planet(String name, double posX, double posY, double velX, double velY, double mass) {
+        this.pos = new Vector(posX, posY);
+        this.vel = new Vector(velX, velY);
         this.mass = mass;
         this.acc = new Vector(0.0, 0.0);
         this.oldacc = new Vector(0.0, 0.0);
@@ -36,9 +36,9 @@ public class Planet {
         this.drawSize = 2;
     }
 
-    public Planet(String name, double pos_x, double pos_y, double vel_x, double vel_y, double mass, Color color) {
-        this.pos = new Vector(pos_x, pos_y);
-        this.vel = new Vector(vel_x, vel_y);
+    public Planet(String name, double posX, double posY, double velX, double velY, double mass, Color color) {
+        this.pos = new Vector(posX, posY);
+        this.vel = new Vector(velX, velY);
         this.mass = mass;
         this.acc = new Vector(0.0, 0.0);
         this.oldacc = new Vector(0.0, 0.0);
@@ -47,9 +47,9 @@ public class Planet {
         this.drawSize = 3;
     }
 
-    public Planet(String name, double pos_x, double pos_y, double vel_x, double vel_y, double mass, Color color, int drawSize) {
-        this.pos = new Vector(pos_x, pos_y);
-        this.vel = new Vector(vel_x, vel_y);
+    public Planet(String name, double posX, double posY, double velX, double velY, double mass, Color color, int drawSize) {
+        this.pos = new Vector(posX, posY);
+        this.vel = new Vector(velX, velY);
         this.mass = mass;
         this.acc = new Vector(0.0, 0.0);
         this.oldacc = new Vector(0.0, 0.0);
@@ -158,8 +158,8 @@ public class Planet {
     public void setDrawSize(int drawSize) {
         this.drawSize = drawSize;
     }
-    
-    public double distance(Planet planet){
+
+    public double distance(Planet planet) {
         return Math.sqrt(Math.pow(this.pos.getX() - planet.getPos().getX(), 2) + Math.pow(this.pos.getY() - planet.getPos().getY(), 2));
     }
 

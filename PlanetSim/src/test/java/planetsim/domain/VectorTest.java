@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package planetsim;
+package planetsim.domain;
 
 import planetsim.domain.Vector;
 import org.junit.After;

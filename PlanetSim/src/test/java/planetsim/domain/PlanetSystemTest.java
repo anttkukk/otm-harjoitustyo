@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package planetsim;
+package planetsim.domain;
 
 import java.util.ArrayList;
 import org.junit.After;
@@ -57,7 +57,7 @@ public class PlanetSystemTest {
     @Test
     public void updateIsWorking() {
         Vector oldPos = system.getPlanets().get(0).getPos();
-        system.Update(100);
+        system.update(100);
         Vector newPos = system.getPlanets().get(0).getPos();
         assertTrue(newPos != oldPos);
         
