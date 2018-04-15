@@ -21,6 +21,11 @@ public class PlanetSystem {
     public ArrayList<Planet> getPlanets() {
         return planets;
     }
+
+    public void setPlanets(ArrayList<Planet> planets) {
+        this.planets = planets;
+    }
+    
     public void Update(int timestep){
         for (Planet planet : planets){
             planet.setPos(planet.newPos(timestep));

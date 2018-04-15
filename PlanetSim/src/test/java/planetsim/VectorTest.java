@@ -69,4 +69,10 @@ public class VectorTest {
         v = v.add(x);
         assertEquals("3.0, 3.0",v.toString());
     }
+    @Test
+    public void dotIsWorking() {
+        Vector x = new Vector(1.0, 2.0);
+        double product = x.dot(v);
+        assertTrue(product == 4.0);
+    }
 }
