@@ -5,6 +5,7 @@
  */
 package planetsim;
 
+import planetsim.domain.Vector;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

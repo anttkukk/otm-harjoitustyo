@@ -5,6 +5,9 @@
  */
 package planetsim;
 
+import planetsim.domain.Planet;
+import planetsim.domain.PlanetSystem;
+import planetsim.domain.Vector;
 import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -234,13 +237,13 @@ public class PlanetSystemSimulation extends Application {
         layout.getChildren().add(nappi);
         HBox hox = new HBox(nappi);
         hox.setLayoutX(100);
-        hox.setLayoutY(50);
+        hox.setLayoutY(45);
         layout.getChildren().add(hox);
         Scene scene = new Scene(layout);
 
         startBut.setOnAction(e -> {
             window.setScene(scene);
-            timestep = normalTimestep;
+            timestep = ogTimestep;
         });
         startLayout.setCenter(startBut);
         timestep = 0;
@@ -388,6 +391,7 @@ public class PlanetSystemSimulation extends Application {
     private void controls(Scene scene) {
         scene.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.P) {
+                
                 if (timestep == 0) {
                     timestep = normalTimestep;
                 } else {
