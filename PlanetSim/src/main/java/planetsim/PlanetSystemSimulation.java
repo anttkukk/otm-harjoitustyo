@@ -232,7 +232,7 @@ public class PlanetSystemSimulation extends Application {
         Button nappi = new Button("takaisin!");
         Button toinen = new Button("kakka");
         layout.getChildren().add(nappi);
-        HBox hox = new HBox(nappi,toinen);
+        HBox hox = new HBox(nappi);
         hox.setLayoutX(100);
         hox.setLayoutY(50);
         layout.getChildren().add(hox);
@@ -243,6 +243,7 @@ public class PlanetSystemSimulation extends Application {
             timestep = normalTimestep;
         });
         startLayout.setCenter(startBut);
+        timestep = 0;
         Scene startScreen = new Scene(startLayout, width,height);
         
         
