@@ -9,5 +9,5 @@
 | 12.4      | 2h | Lisätty mittakaava ja lisätty ominaisuus toiseen kohteeseen jolloin ohjelma laskee kohteiden välisen etäisyyden |
 | 13.4      | 4h | Lisätty aloitusruutu, jossa nappi-start, joka aloittaa simulaation ja simulaatioon paluunappi, joka palauttaa aloitusruudun, mutta ei nollaa simulaatiota. Alkeet siis alkuvalikolle. |
 | 14.4      | 2h | Tehty testejä, erotettu käyttöliittymä ja sovelluslogiikka sekä lisätty näille järkevät packaget, tehty checkstyle.xml ja korjattu sen ilmiantamia puutoksia |
-| ---------------- | --------------- | ------------------| 
+|   |     |    | 
 | Yhteensä: | 25h |     |
