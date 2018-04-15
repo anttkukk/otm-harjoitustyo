@@ -94,13 +94,13 @@ public class PlanetSystemSimulation extends Application {
         //Planet tuhoaja = new Planet(1E12, 0, 0, 10000, 7.322E29);
 
         Planet chury = new Planet("67P/Churyumov–Gerasimenko", 1.8598E11, 0, 0, 34220, 0);
-        Planet nopee = new Planet("Nopee", 0, 2.99E10, -89353, 0, 0);
+        Planet fast = new Planet("Unknown Comet", 0, 2.99E10, -89353, 0, 0);
         planets.add(sun);
         planets.add(earth);
         planets.add(mars);
         planets.add(moon);
         planets.add(chury);
-        planets.add(nopee);
+        planets.add(fast);
         planets.add(venus);
         planets.add(mercury);
         planets.add(jupiter);
