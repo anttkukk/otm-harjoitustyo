@@ -419,7 +419,6 @@ public class PlanetSystemSimulation extends Application {
             }
             if (e.getCode() == KeyCode.C) {
                 createMode = !createMode;
-                follow = false;
             }
             if (e.getCode() == KeyCode.LEFT && e.isControlDown()) {
                 if (subTargetId == 0) {
