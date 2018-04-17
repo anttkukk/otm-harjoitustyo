@@ -1,3 +1,3 @@
-####Alustava luokkakaavio
+#### Alustava luokkakaavio
 
-![luokkakaavio](https://github.com/anttkukk/otm-harjoitustyo/tree/master/dokumentaatio/luokkakaavio.png "Luokkakaavio")
+![luokkakaavio](https://raw.githubusercontent.com/anttkukk/otm-harjoitustyo/master/dokumentaatio/luokkakaavio.png "Luokkakaavio")
