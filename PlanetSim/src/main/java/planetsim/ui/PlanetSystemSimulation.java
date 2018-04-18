@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -212,9 +213,10 @@ public class PlanetSystemSimulation extends Application {
                         drawer.drawImage(uusr, midWidth + p.getPos().getX() / standard, midHeight + p.getPos().getY() / standard, 300, 300);
                     } else {
                         //drawer.fillOval(midWidth + p.getPos().getX() / standard - 2, midHeight + p.getPos().getY() / standard - 2, 5, 5);
+                        
                         circles.get(i).setCenterX(midWidth + p.getPos().getX() / standard);
                         circles.get(i).setCenterY(midHeight + p.getPos().getY() / standard);
-
+                        //if(planets.get(i).getPos().length() > )
                     }
                     i++;
                 }
@@ -277,7 +279,7 @@ public class PlanetSystemSimulation extends Application {
         create(canvas);
         clickPlanets(canvas);
 
-        controls(scene);
+        controls(scene, layout);
 
     }
 
@@ -381,7 +383,7 @@ public class PlanetSystemSimulation extends Application {
     }
 
 
-    private void controls(Scene scene) {
+    private void controls(Scene scene, BorderPane layout) {
         scene.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.P) {
 
@@ -415,6 +417,11 @@ public class PlanetSystemSimulation extends Application {
                 follow = !follow;
             }
             if (e.getCode() == KeyCode.S) {
+                if(!spoopy){
+                    layout.getChildren().removeAll(circles);
+                }else if (spoopy){
+                    layout.getChildren().addAll(circles);
+                }
                 spoopy = !spoopy;
             }
             if (e.getCode() == KeyCode.C) {

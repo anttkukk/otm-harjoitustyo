@@ -36,8 +36,8 @@ public class PlanetSystemTest {
     
     @Before
     public void setUp() {
-        Planet one = new Planet("", 0, 0, 100.0, 100.0, 100);
-        Planet two = new Planet("", 100.0, 100.0, 0, 0, 100.0);
+        Planet one = new Planet("one", 0, 0, 100.0, 100.0, 100);
+        Planet two = new Planet("two", 100.0, 100.0, 0, 0, 100.0);
         planets = new ArrayList<>();
         planets.add(one);
         planets.add(two);
@@ -61,5 +61,10 @@ public class PlanetSystemTest {
         Vector newPos = system.getPlanets().get(0).getPos();
         assertTrue(newPos != oldPos);
         
+    }
+    
+    @Test
+    public void getFurthestIsWorking() {
+        assertEquals("two", system.getFurthest().getName());
     }
 }

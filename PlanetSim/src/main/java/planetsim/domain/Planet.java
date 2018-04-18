@@ -163,4 +163,10 @@ public class Planet {
         return Math.sqrt(Math.pow(this.pos.getX() - planet.getPos().getX(), 2) + Math.pow(this.pos.getY() - planet.getPos().getY(), 2));
     }
 
+    @Override
+    public String toString() {
+        return this.name;
+    }
+    
+
 }

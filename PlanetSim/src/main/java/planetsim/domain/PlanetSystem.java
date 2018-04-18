@@ -36,4 +36,18 @@ public class PlanetSystem {
 
         }
     }
+    
+    public Planet getFurthest(){
+        double far = 0;
+        int i = 0;
+        int farIndex = 0;
+        for (Planet p : planets){
+            if(p.getPos().length() > far){
+                far = p.getPos().length();
+                farIndex = i;
+            }
+            i++;
+        }
+        return planets.get(farIndex);
+    }
 }
