@@ -10,5 +10,6 @@
 | 13.4      | 4h | Lisätty aloitusruutu, jossa nappi-start, joka aloittaa simulaation ja simulaatioon paluunappi, joka palauttaa aloitusruudun, mutta ei nollaa simulaatiota. Alkeet siis alkuvalikolle. |
 | 14.4      | 2h | Tehty testejä, erotettu käyttöliittymä ja sovelluslogiikka sekä lisätty näille järkevät packaget, tehty checkstyle.xml ja korjattu sen ilmiantamia puutoksia |
 | 17.4      | 1h | tehty luokka/pakkauskaavio ja lisätty arkkitehtyyri.md  |
+| 18.4      | 0.5h | lisätty PlanetSystemille saada kaukaisin kappale ja testit metodille sekä pikku paranteluja  |
 |   |     |    | 
 | Yhteensä: | 26h |     |
