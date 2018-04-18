@@ -12,4 +12,4 @@
 | 17.4      | 1h | tehty luokka/pakkauskaavio ja lisätty arkkitehtyyri.md  |
 | 18.4      | 0.5h | lisätty PlanetSystemille saada kaukaisin kappale ja testit metodille sekä pikku paranteluja  |
 |   |     |    | 
-| Yhteensä: | 26h |     |
+| Yhteensä: | 26.5h |     |
