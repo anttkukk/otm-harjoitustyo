@@ -8,6 +8,7 @@ package planetsim.ui;
 import planetsim.domain.Planet;
 import planetsim.domain.PlanetSystem;
 import planetsim.domain.Vector;
+import planetsim.database.*;
 import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -41,6 +42,9 @@ public class PlanetSystemSimulation extends Application {
     private static final String SPACEURL = "file:images/avaruustausta.jpg";
     private static final String SKELEURL = "file:images/skeleton.gif";
     private static final String USSRURL = "file:images/ussr.png";
+    private Database database;
+    private PlanetDao planetDao;
+    private int system = 1;
     double mouseX = 0;
     double mouseY = 0;
     double canvasX = 0;
@@ -80,38 +84,34 @@ public class PlanetSystemSimulation extends Application {
     }
 
     @Override
-    public void start(Stage window) {
+    public void start(Stage window) throws Exception {
 
         //Planet name change to body? because sun, moon and chury are not planets
-        Planet sun = new Planet("Sun", 0, 0, 0, 0, 1.989E30, Color.YELLOW, 4);
-        //Planet earth = new Planet("Earth", 7.649815710400691E10, 1.2825871174194992E11, -25608.972746907584, 15340.707015973465, 5.974E24, Color.BLUE);
-        Planet earth = new Planet("Earth", 1.521E11, 0, 0, 29290, 5.97237E24, Color.BLUE, 3);
-        Planet mars = new Planet("Mars", 2.279392E11, 0, 0, 24077, 6.4171E23, Color.TOMATO, 3);
-        Planet moon = new Planet("Moon", 1.52484399E11, 0, 0, 30312, 7.342E22, Color.GREY, 2);
-        Planet venus = new Planet("Venus", 1.08208E11, 0, 0, 35020, 4.8675E24, Color.GOLDENROD, 3);
-        Planet mercury = new Planet("Mercury", 5.790905E10, 0, 0, 47362, 3.3011E23, Color.GREY, 3);
-        Planet jupiter = new Planet("Jupiter", 7.78412E11, 0, 0, 13070, 1.899E27, Color.LIGHTSALMON, 3);
-        Planet callisto = new Planet("Callisto", 7.802947E11, 0, 0, 21274, 1.075938E23, Color.GREY, 3);
-        //Planet tuhoaja = new Planet(1E12, 0, 0, 10000, 7.322E29);
-
-        Planet chury = new Planet("67P/Churyumov–Gerasimenko", 1.8598E11, 0, 0, 34220, 0);
-        Planet fast = new Planet("Unknown Comet", 0, 2.99E10, -89353, 0, 0);
-        planets.add(sun);
-        planets.add(earth);
-        planets.add(mars);
-        planets.add(moon);
-        planets.add(chury);
-        planets.add(fast);
-        planets.add(venus);
-        planets.add(mercury);
-        planets.add(jupiter);
-        //planets.add(callisto);
-        //planets.add(tuhoaja);
-        for (Planet p : planets) {
-            Circle circle = makeCircle(p);
-            circles.add(circle);
-        }
-        circlesSize = circles.size();
+//        Planet sun = new Planet("Sun", 0, 0, 0, 0, 1.989E30, Color.YELLOW, 4);
+//        //Planet earth = new Planet("Earth", 7.649815710400691E10, 1.2825871174194992E11, -25608.972746907584, 15340.707015973465, 5.974E24, Color.BLUE);
+//        Planet earth = new Planet("Earth", 1.521E11, 0, 0, 29290, 5.97237E24, Color.BLUE, 3);
+//        Planet mars = new Planet("Mars", 2.279392E11, 0, 0, 24077, 6.4171E23, Color.TOMATO, 3);
+//        Planet moon = new Planet("Moon", 1.52484399E11, 0, 0, 30312, 7.342E22, Color.GREY, 2);
+//        Planet venus = new Planet("Venus", 1.08208E11, 0, 0, 35020, 4.8675E24, Color.GOLDENROD, 3);
+//        Planet mercury = new Planet("Mercury", 5.790905E10, 0, 0, 47362, 3.3011E23, Color.GREY, 3);
+//        Planet jupiter = new Planet("Jupiter", 7.78412E11, 0, 0, 13070, 1.899E27, Color.LIGHTSALMON, 3);
+//        Planet callisto = new Planet("Callisto", 7.802947E11, 0, 0, 21274, 1.075938E23, Color.GREY, 3);
+//        //Planet tuhoaja = new Planet(1E12, 0, 0, 10000, 7.322E29);
+//
+//        Planet chury = new Planet("67P/Churyumov–Gerasimenko", 1.8598E11, 0, 0, 34220, 0);
+//        Planet fast = new Planet("Unknown Comet", 0, 2.99E10, -89353, 0, 0);
+//        planets.add(sun);
+//        planets.add(earth);
+//        planets.add(mars);
+//        planets.add(moon);
+//        planets.add(chury);
+//        planets.add(fast);
+//        planets.add(venus);
+//        planets.add(mercury);
+//        planets.add(jupiter);
+//        //planets.add(callisto);
+//        //planets.add(tuhoaja);
+        getPlanets();
 
         Canvas canvas = new Canvas(width, height);
         GraphicsContext drawer = canvas.getGraphicsContext2D();
@@ -119,7 +119,9 @@ public class PlanetSystemSimulation extends Application {
         layout.setCenter(canvas);
 
         PlanetSystem starsystem = new PlanetSystem(planets);
-
+        standard = starsystem.getFurthest().getPos().length() / 300;
+        ogStandard = standard;
+        System.out.println(starsystem.getFurthest().getName());
         new AnimationTimer() {
             long prev = 0;
             Image space = new Image(SPACEURL);
@@ -133,13 +135,6 @@ public class PlanetSystemSimulation extends Application {
                 if (now - prev < 1E7) {
                     return;
                 }
-//                if (standard < 1E8) {
-//                    kerroin = 1E8;
-//                }
-//                if (standard > 5E9) {
-//                    kerroin = -1E8;
-//                }
-                //standard += kerroin;
 
                 days = days + 1.0 * timestep / (60 * 60 * 24);
 
@@ -148,7 +143,6 @@ public class PlanetSystemSimulation extends Application {
                 } else {
                     drawer.setFill(Color.BLACK);
                     drawer.fillRect(0, 0, width * height, width * height);
-
                 }
 
                 drawer.setFill(Color.WHITE);
@@ -165,7 +159,7 @@ public class PlanetSystemSimulation extends Application {
                 String string = String.format("%.02f", 99.7 * standard / (1.495978707E11));
                 drawer.fillText(string + " au", width * 1 / 3 + 25, height * 7 / 8 - 20);
 
-                //Follow earth
+                //Follow target
                 if (follow) {
                     midWidth = width / 2 - planets.get(followId).getPos().getX() / standard;
                     midHeight = height / 2 - planets.get(followId).getPos().getY() / standard;
@@ -213,7 +207,7 @@ public class PlanetSystemSimulation extends Application {
                         drawer.drawImage(uusr, midWidth + p.getPos().getX() / standard, midHeight + p.getPos().getY() / standard, 300, 300);
                     } else {
                         //drawer.fillOval(midWidth + p.getPos().getX() / standard - 2, midHeight + p.getPos().getY() / standard - 2, 5, 5);
-                        
+
                         circles.get(i).setCenterX(midWidth + p.getPos().getX() / standard);
                         circles.get(i).setCenterY(midHeight + p.getPos().getY() / standard);
                         //if(planets.get(i).getPos().length() > )
@@ -281,6 +275,18 @@ public class PlanetSystemSimulation extends Application {
 
         controls(scene, layout);
 
+    }
+
+    private void getPlanets() throws Exception {
+        //Initialize planets from database and draw circles for each planet
+        this.database = new Database("jdbc:sqlite:database.db");
+        PlanetDao planetDao = new PlanetDao(database);
+        planets = planetDao.findAllFromSystem(system);
+        for (Planet p : planets) {
+            Circle circle = makeCircle(p);
+            circles.add(circle);
+        }
+        circlesSize = circles.size();
     }
 
     private void mouseCoord(MouseEvent e) {
@@ -382,7 +388,6 @@ public class PlanetSystemSimulation extends Application {
 
     }
 
-
     private void controls(Scene scene, BorderPane layout) {
         scene.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.P) {
@@ -417,9 +422,9 @@ public class PlanetSystemSimulation extends Application {
                 follow = !follow;
             }
             if (e.getCode() == KeyCode.S) {
-                if(!spoopy){
+                if (!spoopy) {
                     layout.getChildren().removeAll(circles);
-                }else if (spoopy){
+                } else if (spoopy) {
                     layout.getChildren().addAll(circles);
                 }
                 spoopy = !spoopy;
