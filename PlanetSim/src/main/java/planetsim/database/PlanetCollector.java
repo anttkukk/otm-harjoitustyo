@@ -14,16 +14,15 @@ import javafx.scene.paint.Color;
  *
  * @author anttkukk
  */
-public class PlanetCollector implements Collector<Planet>{
-    
-     @Override
-    
+public class PlanetCollector implements Collector<Planet> {
+
+    @Override
+
     public Planet collect(ResultSet rs) throws SQLException {
-        if(rs.getString("color").equals("r")){
-            return new Planet(rs.getString("name"), rs.getDouble("posx"),  rs.getDouble("posy"),  rs.getDouble("velx"), rs.getDouble("vely"), rs.getDouble("mass"));
+        if (rs.getString("color").equals("r")) {
+            return new Planet(rs.getString("name"), rs.getDouble("posx"), rs.getDouble("posy"), rs.getDouble("velx"), rs.getDouble("vely"), rs.getDouble("mass"));
         }
-        return new Planet(rs.getString("name"), rs.getDouble("posx"),  rs.getDouble("posy"),  rs.getDouble("velx"), rs.getDouble("vely"), rs.getDouble("mass"), Color.valueOf(rs.getString("color")), rs.getInt("size"));
+        return new Planet(rs.getString("name"), rs.getDouble("posx"), rs.getDouble("posy"), rs.getDouble("velx"), rs.getDouble("vely"), rs.getDouble("mass"), Color.valueOf(rs.getString("color")), rs.getInt("size"));
     }
-    
-    
+
 }
