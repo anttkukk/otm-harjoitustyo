@@ -10,6 +10,8 @@ import planetsim.domain.PlanetSystem;
 import planetsim.domain.Vector;
 import planetsim.database.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -44,7 +46,8 @@ public class PlanetSystemSimulation extends Application {
     private static final String USSRURL = "file:images/ussr.png";
     private Database database;
     private PlanetDao planetDao;
-    private int system = 1;
+    PlanetSystem starsystem;
+    int system = 1;
     double mouseX = 0;
     double mouseY = 0;
     double canvasX = 0;
@@ -111,18 +114,16 @@ public class PlanetSystemSimulation extends Application {
 //        planets.add(jupiter);
 //        //planets.add(callisto);
 //        //planets.add(tuhoaja);
-        getPlanets();
-
         Canvas canvas = new Canvas(width, height);
         GraphicsContext drawer = canvas.getGraphicsContext2D();
         BorderPane layout = new BorderPane();
         layout.setCenter(canvas);
 
-        PlanetSystem starsystem = new PlanetSystem(planets);
+        starsystem = getPlanets(layout);
         standard = starsystem.getFurthest().getPos().length() / 300;
         ogStandard = standard;
         System.out.println(starsystem.getFurthest().getName());
-        new AnimationTimer() {
+        AnimationTimer timer = new AnimationTimer() {
             long prev = 0;
             Image space = new Image(SPACEURL);
             Image uusr = new Image(SKELEURL);
@@ -222,11 +223,15 @@ public class PlanetSystemSimulation extends Application {
                 }
             }
 
-        }.start();
-        layout.getChildren().addAll(circles);
+        };
+        //layout.getChildren().addAll(circles);
 
         //Start screen and buttons 
+        VBox startBox = new VBox();
         Button startBut = new Button("start!");
+        Button systemChange = new Button("Change system");
+        Label label = new Label("Selected system: " + system);
+
         BorderPane startLayout = new BorderPane();
         Button nappi = new Button("takaisin!");
         Button toinen = new Button("kakka");
@@ -240,8 +245,28 @@ public class PlanetSystemSimulation extends Application {
         startBut.setOnAction(e -> {
             window.setScene(scene);
             timestep = ogTimestep;
+            timer.start();
         });
-        startLayout.setCenter(startBut);
+
+        systemChange.setOnAction(e -> {
+            if (system == 1) {
+                system = 2;
+            } else {
+                system = 1;
+            }
+            label.setText("Selected system: " + system);
+            try {
+                starsystem = getPlanets(layout);
+            } catch (Exception ex) {
+                Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            standard = starsystem.getFurthest().getPos().length() / 300;
+            ogStandard = standard;
+
+        });
+
+        startBox.getChildren().addAll(startBut, systemChange, label);
+        startLayout.setCenter(startBox);
         timestep = 0;
         Scene startScreen = new Scene(startLayout, width, height);
 
@@ -249,6 +274,7 @@ public class PlanetSystemSimulation extends Application {
             window.setScene(startScreen);
             normalTimestep = timestep;
             timestep = 0;
+            timer.stop();
         });
         toinen.setOnAction(e -> {
             spoopy = !spoopy;
@@ -277,8 +303,11 @@ public class PlanetSystemSimulation extends Application {
 
     }
 
-    private void getPlanets() throws Exception {
+    private PlanetSystem getPlanets(BorderPane layout) throws Exception {
         //Initialize planets from database and draw circles for each planet
+        planets.clear();
+        layout.getChildren().removeAll(circles);
+        circles.clear();
         this.database = new Database("jdbc:sqlite:database.db");
         PlanetDao planetDao = new PlanetDao(database);
         planets = planetDao.findAllFromSystem(system);
@@ -287,6 +316,8 @@ public class PlanetSystemSimulation extends Application {
             circles.add(circle);
         }
         circlesSize = circles.size();
+        layout.getChildren().addAll(circles);
+        return new PlanetSystem(planets);
     }
 
     private void mouseCoord(MouseEvent e) {
