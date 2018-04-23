@@ -46,6 +46,7 @@ public class PlanetSystemSimulation extends Application {
     private static final String SPACEURL = "file:images/avaruustausta.jpg";
     private static final String SKELEURL = "file:images/skeleton.gif";
     private static final String USSRURL = "file:images/ussr.png";
+    private static final String PLANETURL = "file:images/tausta.jpg";
     private Database database;
     private PlanetDao planetDao;
     PlanetSystem starsystem;
@@ -234,15 +235,16 @@ public class PlanetSystemSimulation extends Application {
         VBox startBox = new VBox();
         startBox.setAlignment(Pos.CENTER);
         startBox.setSpacing(5);
+        startBox.setPadding(new Insets(50,200,0,0));
         //backgroundImage
-        //startBox.setStyle("-fx-background-image: url(" + SPACEURL + ")");
-        startBox.setStyle("-fx-background-color: darksalmon");
+        startBox.setStyle("-fx-background-image: url(" + PLANETURL + ")");
+        //startBox.setStyle("-fx-background-color: darksalmon");
         Button startBut = new Button("start!");
         Button systemChange = new Button("Change system");
         Label label = new Label("Selected system: " + system);
         label.setTextFill(Color.AZURE);
         Label changeWarning = new Label("System will reset on system change!");
-        changeWarning.setTextFill(Color.AZURE);
+        changeWarning.setTextFill(Color.CORAL);
 
         BorderPane startLayout = new BorderPane();
         Button nappi = new Button("takaisin!");
