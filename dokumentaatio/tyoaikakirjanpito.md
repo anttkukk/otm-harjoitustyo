@@ -14,4 +14,4 @@
 | 22.4	    | 5h  | Lisätty database, josta ohjelma hakee planeetat |
 | 23.4 	    | 3.5h | Lisätty testejä database luokkiin, lisätty nappi jota painamalla ohjelman planeettajärjestelmä vaihtuu ja tehty ohjelmaa kauniimmaksi sekä tehty koodiin parannuksia ja checkstyle korjauksia |
 |   |     |    | 
-| Yhteensä: | 31.5h |     |
+| Yhteensä: | 35h |     |
