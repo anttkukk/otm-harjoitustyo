@@ -34,8 +34,6 @@ public class Planet {
         this.color = Color.rgb(r.nextInt(255), r.nextInt(255), r.nextInt(255));
         this.name = name;
         this.drawSize = 2;
-        System.out.println(name + " " + Color.SKYBLUE);
-
     }
 
     public Planet(String name, double posX, double posY, double velX, double velY, double mass, Color color) {

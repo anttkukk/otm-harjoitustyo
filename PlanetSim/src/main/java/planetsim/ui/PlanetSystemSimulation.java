@@ -5,6 +5,7 @@
  */
 package planetsim.ui;
 
+import java.sql.SQLException;
 import planetsim.domain.Planet;
 import planetsim.domain.PlanetSystem;
 import planetsim.domain.Vector;
@@ -16,6 +17,7 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -119,10 +121,12 @@ public class PlanetSystemSimulation extends Application {
         BorderPane layout = new BorderPane();
         layout.setCenter(canvas);
 
+        this.database = new Database("jdbc:sqlite:database.db");
+        planetDao = new PlanetDao(database);
+
         starsystem = getPlanets(layout);
         standard = starsystem.getFurthest().getPos().length() / 300;
         ogStandard = standard;
-        System.out.println(starsystem.getFurthest().getName());
         AnimationTimer timer = new AnimationTimer() {
             long prev = 0;
             Image space = new Image(SPACEURL);
@@ -228,9 +232,17 @@ public class PlanetSystemSimulation extends Application {
 
         //Start screen and buttons 
         VBox startBox = new VBox();
+        startBox.setAlignment(Pos.CENTER);
+        startBox.setSpacing(5);
+        //backgroundImage
+        //startBox.setStyle("-fx-background-image: url(" + SPACEURL + ")");
+        startBox.setStyle("-fx-background-color: darksalmon");
         Button startBut = new Button("start!");
         Button systemChange = new Button("Change system");
         Label label = new Label("Selected system: " + system);
+        label.setTextFill(Color.AZURE);
+        Label changeWarning = new Label("System will reset on system change!");
+        changeWarning.setTextFill(Color.AZURE);
 
         BorderPane startLayout = new BorderPane();
         Button nappi = new Button("takaisin!");
@@ -245,16 +257,20 @@ public class PlanetSystemSimulation extends Application {
         startBut.setOnAction(e -> {
             window.setScene(scene);
             timestep = ogTimestep;
+            followId = 0;
+            resetScreen();
             timer.start();
         });
 
         systemChange.setOnAction(e -> {
-            if (system == 1) {
-                system = 2;
-            } else {
-                system = 1;
+            try {
+                changeSystem();
+            } catch (SQLException ex) {
+                Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
             }
+
             label.setText("Selected system: " + system);
+
             try {
                 starsystem = getPlanets(layout);
             } catch (Exception ex) {
@@ -265,7 +281,7 @@ public class PlanetSystemSimulation extends Application {
 
         });
 
-        startBox.getChildren().addAll(startBut, systemChange, label);
+        startBox.getChildren().addAll(startBut, systemChange, label, changeWarning);
         startLayout.setCenter(startBox);
         timestep = 0;
         Scene startScreen = new Scene(startLayout, width, height);
@@ -303,13 +319,20 @@ public class PlanetSystemSimulation extends Application {
 
     }
 
+    private void changeSystem() throws SQLException {
+        if (system == planetDao.countSystems()) {
+            system = 1;
+        } else {
+            system++;
+        }
+    }
+
     private PlanetSystem getPlanets(BorderPane layout) throws Exception {
         //Initialize planets from database and draw circles for each planet
         planets.clear();
         layout.getChildren().removeAll(circles);
         circles.clear();
-        this.database = new Database("jdbc:sqlite:database.db");
-        PlanetDao planetDao = new PlanetDao(database);
+
         planets = planetDao.findAllFromSystem(system);
         for (Planet p : planets) {
             Circle circle = makeCircle(p);
@@ -444,10 +467,7 @@ public class PlanetSystemSimulation extends Application {
                 timestep = timestep * -1;
             }
             if (e.getCode() == KeyCode.R) {
-                standard = ogStandard;
-                midWidth = width / 2;
-                midHeight = height / 2;
-                follow = false;
+                resetScreen();
             }
             if (e.getCode() == KeyCode.DIGIT1) {
                 follow = !follow;
@@ -487,6 +507,13 @@ public class PlanetSystemSimulation extends Application {
             }
 
         });
+    }
+
+    private void resetScreen() {
+        standard = ogStandard;
+        midWidth = width / 2;
+        midHeight = height / 2;
+        follow = false;
     }
 
     private Circle makeCircle(Planet p) {
@@ -530,16 +557,6 @@ public class PlanetSystemSimulation extends Application {
 
         return circle;
 
-    }
-
-    private void addPlanet(String name, double posX, double posY, double velX, double velY, double mass, Color color) {
-        Planet planet = new Planet(name, posX, posY, velX, velY, mass, color);
-        planets.add(planet);
-    }
-
-    private void addPlanet(String name, double posX, double posY, double velX, double velY, double mass) {
-        Planet planet = new Planet(name, posX, posY, velX, velY, mass);
-        planets.add(planet);
     }
 
 }

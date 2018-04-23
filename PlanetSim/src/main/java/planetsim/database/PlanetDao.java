@@ -5,6 +5,10 @@
  */
 package planetsim.database;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +46,7 @@ public class PlanetDao implements Dao<Planet, Integer> {
         ArrayList<Planet> planets = this.db.queryAndCollect("SELECT * FROM Planet", new PlanetCollector());
         return planets;
     }
-    
+
     public ArrayList<Planet> findAllFromSystem(Integer key) throws SQLException {
         ArrayList<Planet> planets = this.db.queryAndCollect("SELECT p.* FROM System s, Planet p, Systemplanet sp WHERE s.id = sp.system AND sp.planet = p.id AND s.id = ?", new PlanetCollector(), key);
         return planets;
@@ -51,6 +55,18 @@ public class PlanetDao implements Dao<Planet, Integer> {
     @Override
     public void delete(Integer key) throws SQLException {
         this.db.update("DELETE FROM Planet WHERE id = ?", key);
+    }
+
+    public Integer countSystems() throws SQLException {
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:database.db");
+        PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) as systems FROM System;");
+        ResultSet result = stmt.executeQuery();
+        Integer i = 0;
+        while (result.next()) {
+            i = Integer.parseInt(result.getString("systems"));
+        }
+        conn.close();
+        return i;
     }
 
 }

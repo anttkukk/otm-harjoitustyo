@@ -71,4 +71,9 @@ public class PlanetDaoTest {
         ArrayList<Planet> planets = planetDao.findAll();
         assertTrue(planets.size() > 0);
     }
+    @Test
+    public void countSystemsIsWorking() throws SQLException {
+        Integer i = planetDao.countSystems();
+        assertTrue(i > 0);
+    }
 }
