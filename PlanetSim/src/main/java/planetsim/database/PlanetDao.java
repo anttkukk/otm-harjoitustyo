@@ -37,7 +37,7 @@ public class PlanetDao implements Dao<Planet, Integer> {
 
     @Override
     public void save(Planet p) throws SQLException {
-        this.db.update("INSERT INTO Planet(name, posx, posy, velx, vely, mass, color, size)", p.getName(), p.getPos().getX(), p.getPos().getY(), p.getVel().getX(), p.getVel().getY(), p.getMass(), p.getColor().toString(), p.getDrawSize());
+        this.db.update("INSERT INTO Planet(name, posx, posy, velx, vely, mass, color, size) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", p.getName(), p.getPos().getX(), p.getPos().getY(), p.getVel().getX(), p.getVel().getY(), p.getMass(), p.getColor().toString(), p.getDrawSize());
 
     }
 
@@ -53,8 +53,8 @@ public class PlanetDao implements Dao<Planet, Integer> {
     }
 
     @Override
-    public void delete(Integer key) throws SQLException {
-        this.db.update("DELETE FROM Planet WHERE id = ?", key);
+    public void delete(String key) throws SQLException {
+        this.db.update("DELETE FROM Planet WHERE name = ?", key);
     }
 
     public Integer countSystems() throws SQLException {
@@ -68,5 +68,17 @@ public class PlanetDao implements Dao<Planet, Integer> {
         conn.close();
         return i;
     }
+    public Integer countPlanets() throws SQLException {
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:database.db");
+        PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) as planets FROM Planet;");
+        ResultSet result = stmt.executeQuery();
+        Integer i = 0;
+        while (result.next()) {
+            i = Integer.parseInt(result.getString("planets"));
+        }
+        conn.close();
+        return i;
+    }
+            
 
 }

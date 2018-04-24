@@ -66,6 +66,7 @@ public class PlanetSystemSimulation extends Application {
     double dragX = 0;
     double midWidth = width / 2;
     double midHeight = height / 2;
+    double days;
     Integer timestep = 6000;
     Integer ogTimestep = timestep;
     Integer normalTimestep = timestep;
@@ -86,7 +87,7 @@ public class PlanetSystemSimulation extends Application {
     int circlesSize = 0;
 
     public static void main(String[] args) {
-        launch(PlanetSystemSimulation.class);
+        launch(args);
     }
 
     @Override
@@ -128,12 +129,13 @@ public class PlanetSystemSimulation extends Application {
         starsystem = getPlanets(layout);
         standard = starsystem.getFurthest().getPos().length() / 300;
         ogStandard = standard;
+        days = 0.0;
         AnimationTimer timer = new AnimationTimer() {
             long prev = 0;
             Image space = new Image(SPACEURL);
             Image uusr = new Image(SKELEURL);
             Image ussr = new Image(USSRURL);
-            Double days = 0.0;
+            
             double kerroin = 1E6;
 
             @Override
@@ -247,12 +249,14 @@ public class PlanetSystemSimulation extends Application {
         changeWarning.setTextFill(Color.CORAL);
 
         BorderPane startLayout = new BorderPane();
-        Button nappi = new Button("takaisin!");
+        Button nappi = new Button("Back!");
         Button toinen = new Button("kakka");
-        layout.getChildren().add(nappi);
-        HBox hox = new HBox(nappi);
+        //layout.getChildren().add(nappi);
+        HBox hox = new HBox();
         hox.setLayoutX(100);
         hox.setLayoutY(45);
+        nappi.setMinWidth(75);
+        hox.getChildren().add(nappi);
         layout.getChildren().add(hox);
         Scene scene = new Scene(layout);
 
@@ -280,6 +284,7 @@ public class PlanetSystemSimulation extends Application {
             }
             standard = starsystem.getFurthest().getPos().length() / 300;
             ogStandard = standard;
+            days = 0.0;
 
         });
 

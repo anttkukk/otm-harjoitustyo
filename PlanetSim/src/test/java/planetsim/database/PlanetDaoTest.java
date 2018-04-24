@@ -76,4 +76,20 @@ public class PlanetDaoTest {
         Integer i = planetDao.countSystems();
         assertTrue(i > 0);
     }
+    @Test
+    public void testMethod() throws SQLException {
+        Integer i = planetDao.countPlanets();
+        assertTrue(i > 0);
+    }
+    
+    @Test
+    public void addingAndDeletingWorks() throws SQLException {
+        Integer original = planetDao.countPlanets();
+        Planet planet = new Planet("test123", 0, 0, 0, 0, 0);
+        planetDao.save(planet);
+        Integer added = planetDao.countPlanets();
+        planetDao.delete("test123");
+        Integer end = planetDao.countPlanets();
+        assertTrue(original.equals(end) && original < added);
+    }
 }

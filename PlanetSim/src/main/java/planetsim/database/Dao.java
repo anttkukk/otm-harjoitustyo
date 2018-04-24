@@ -20,5 +20,5 @@ public interface Dao<T, K> {
     
     ArrayList<T> findAll() throws SQLException;
     
-    void delete(K key) throws SQLException;
+    void delete(String key) throws SQLException;
 }
