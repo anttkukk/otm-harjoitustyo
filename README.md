@@ -11,6 +11,10 @@
 
 [Arkkitehtuuri](https://github.com/anttkukk/otm-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
 
+### Releaset
+
+[Viikko 5](https://github.com/anttkukk/otm-harjoitustyo/releases/tag/viikko5)
+
 
  ### Komentorivikomennot
  Testit suoritetaan komennolla 
