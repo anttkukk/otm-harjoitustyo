@@ -13,5 +13,6 @@
 | 18.4      | 0.5h | lisätty PlanetSystemille saada kaukaisin kappale ja testit metodille sekä pikku paranteluja  |
 | 22.4	    | 5h  | Lisätty database, josta ohjelma hakee planeetat |
 | 23.4 	    | 3.5h | Lisätty testejä database luokkiin, lisätty nappi jota painamalla ohjelman planeettajärjestelmä vaihtuu ja tehty ohjelmaa kauniimmaksi sekä tehty koodiin parannuksia ja checkstyle korjauksia |
+| 24.4      | 4h | Lisätty mahdollisuus tehdä jar-tiedosto sekä taisteltu release version kanssa, lisätty testejä ja pikkuparannuksia koodiin tehty |
 |   |     |    | 
 | Yhteensä: | 35h |     |
