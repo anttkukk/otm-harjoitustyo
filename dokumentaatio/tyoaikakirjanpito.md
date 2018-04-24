@@ -15,4 +15,4 @@
 | 23.4 	    | 3.5h | Lisätty testejä database luokkiin, lisätty nappi jota painamalla ohjelman planeettajärjestelmä vaihtuu ja tehty ohjelmaa kauniimmaksi sekä tehty koodiin parannuksia ja checkstyle korjauksia |
 | 24.4      | 4h | Lisätty mahdollisuus tehdä jar-tiedosto sekä taisteltu release version kanssa, lisätty testejä ja pikkuparannuksia koodiin tehty |
 |   |     |    | 
-| Yhteensä: | 35h |     |
+| Yhteensä: | 39h |     |
