@@ -46,7 +46,7 @@ public class PlanetSystemSimulation extends Application {
     private static final String SPACEURL = "file:images/avaruustausta.jpg";
     private static final String SKELEURL = "file:images/skeleton.gif";
     private static final String USSRURL = "file:images/ussr.png";
-    private static final String PLANETURL = "file:images/tausta.jpg";
+    private static final String PLANETURL = "file:tausta.jpg";
     private Database database;
     private PlanetDao planetDao;
     PlanetSystem starsystem;
@@ -479,14 +479,14 @@ public class PlanetSystemSimulation extends Application {
             if (e.getCode() == KeyCode.DIGIT1) {
                 follow = !follow;
             }
-            if (e.getCode() == KeyCode.S) {
-                if (!spoopy) {
-                    layout.getChildren().removeAll(circles);
-                } else if (spoopy) {
-                    layout.getChildren().addAll(circles);
-                }
-                spoopy = !spoopy;
-            }
+//            if (e.getCode() == KeyCode.S) {
+//                if (!spoopy) {
+//                    layout.getChildren().removeAll(circles);
+//                } else if (spoopy) {
+//                    layout.getChildren().addAll(circles);
+//                }
+//                spoopy = !spoopy;
+//            }
             if (e.getCode() == KeyCode.C) {
                 createMode = !createMode;
             }
