@@ -102,7 +102,8 @@ public class Database {
         // initializing database
         list.add("PRAGMA foreign_keys=ON;");
         list.add("CREATE TABLE System (id integer PRIMARY KEY, name varchar(20) UNIQUE);");
-        list.add("INSERT INTO System VALUES(1,'default');");
+        list.add("INSERT INTO System VALUES(1,'Inner planets');");
+        list.add("INSERT INTO System VALUES(2,'Sol system');");
         list.add("CREATE TABLE Planet (id integer Primary KEY, name varchar(30) UNIQUE, posx real, posy real, velx real, vely real, mass real, color varchar(15), size integer);");
         list.add("INSERT INTO Planet VALUES(1,'Sun',0.0,0.0,0.0,0.0,1.989e+30,'0xffff00ff',3);");
         list.add("INSERT INTO Planet VALUES(2,'Earth',152100000000.0,0.0,0.0,29290.0,5.97237e+24,'0x0000ffff',3);");
@@ -115,6 +116,7 @@ public class Database {
         list.add("INSERT INTO Planet VALUES(9, 'Unknown Comet', 0, 2.99E10, -89353, 0, 0, 'r', 2);");
         list.add("INSERT INTO Planet VALUES(10, 'Uranus', 2.8709722E12, 0, 0, 6835.2, 8.686E25, '0x87ceebff', 3);");
         list.add("INSERT INTO Planet VALUES(11, 'Neptune', 4.4982529E12, 0, 0, 5430, 1.0243E26, '0x0000ffff', 3);");
+        list.add("INSERT INTO Planet VALUES(12, 'Saturn', 1.43353E12, 0, 0, 9680, 5.6834E26, '0xf0e68cff', 3);");
         list.add("CREATE TABLE Systemplanet (system integer NOT NULL, planet integer NOT NULL, FOREIGN KEY(system) REFERENCES System(id), FOREIGN KEY(planet) REFERENCES Planet(id));");
         list.add("INSERT INTO Systemplanet VALUES(1,1);");
         list.add("INSERT INTO Systemplanet VALUES(1,2);");
@@ -133,6 +135,7 @@ public class Database {
         list.add("INSERT INTO Systemplanet VALUES(2,7);");
         list.add("INSERT INTO Systemplanet VALUES(2,10);");
         list.add("INSERT INTO Systemplanet VALUES(2,11);");
+        list.add("INSERT INTO Systemplanet VALUES(2,12);");
 
         return list;
     }

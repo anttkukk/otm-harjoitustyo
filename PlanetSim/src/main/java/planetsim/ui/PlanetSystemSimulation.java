@@ -15,6 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -23,6 +25,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -39,6 +42,7 @@ import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class PlanetSystemSimulation extends Application {
@@ -73,6 +77,7 @@ public class PlanetSystemSimulation extends Application {
     boolean follow = false;
     boolean subTarget = false;
     boolean spoopy = false;
+    boolean dtWarning = false;
     ArrayList<Circle> circles = new ArrayList<>();
     int followId = 1;
     int subTargetId = 1;
@@ -135,7 +140,7 @@ public class PlanetSystemSimulation extends Application {
             Image space = new Image(SPACEURL);
             Image uusr = new Image(SKELEURL);
             Image ussr = new Image(USSRURL);
-            
+
             double kerroin = 1E6;
 
             @Override
@@ -166,12 +171,15 @@ public class PlanetSystemSimulation extends Application {
                 drawer.strokeLine(width * 1 / 3 + 99.7, height * 7 / 8 - 2, width * 1 / 3 + 99.7, height * 7 / 8 + 2);
                 String string = String.format("%.02f", 99.7 * standard / (1.495978707E11));
                 drawer.fillText(string + " au", width * 1 / 3 + 25, height * 7 / 8 - 20);
-
+                //Warning for too high timestep
+                if(dt > 2000){
+                    drawer.fillText("WARNING! Big timesteps can cause big problems!", width * 1/3, height * 1/8);
+                }
                 //Follow target
                 if (follow) {
                     midWidth = width / 2 - planets.get(followId).getPos().getX() / standard;
                     midHeight = height / 2 - planets.get(followId).getPos().getY() / standard;
-                    drawer.fillText(day + " days\n" + year + " years\n" + "timestep: " + dstep + " h\nTarget: " + planets.get(followId).getName(), timeX, timeY);
+                    drawer.fillText(day + " days\n" + year + " years\n" + "timestep: " + dstep + " min\nTarget: " + planets.get(followId).getName(), timeX, timeY);
                     if (subTarget) {
                         drawer.fillText("Subtarget: " + planets.get(subTargetId).getName(), timeX, timeY + 60);
                         double distance = planets.get(followId).distance(planets.get(subTargetId));
@@ -188,7 +196,7 @@ public class PlanetSystemSimulation extends Application {
                     }
 
                 } else {
-                    drawer.fillText(day + " days\n" + year + " years\n" + "timestep: " + dstep + " h", timeX, timeY);
+                    drawer.fillText(day + " days\n" + year + " years\n" + "timestep: " + dstep + " min", timeX, timeY);
 
                 }
                 if (createMode) {
@@ -237,7 +245,7 @@ public class PlanetSystemSimulation extends Application {
         VBox startBox = new VBox();
         startBox.setAlignment(Pos.CENTER);
         startBox.setSpacing(5);
-        startBox.setPadding(new Insets(50,200,0,0));
+        startBox.setPadding(new Insets(50, 200, 0, 0));
         //backgroundImage
         startBox.setStyle("-fx-background-image: url(" + PLANETURL + ")");
         //startBox.setStyle("-fx-background-color: darksalmon");
@@ -252,6 +260,15 @@ public class PlanetSystemSimulation extends Application {
         Button nappi = new Button("Back!");
         Button toinen = new Button("kakka");
         //layout.getChildren().add(nappi);
+        
+        ArrayList<String> systems = planetDao.getSystems();
+        ListView<String> list = new ListView<>();
+        ObservableList<String> items = FXCollections.observableArrayList(systems);
+        list.setItems(items);
+        list.setMaxWidth(150.0);
+        list.setPrefHeight(70);
+        list.getSelectionModel().select(0);
+
         HBox hox = new HBox();
         hox.setLayoutX(100);
         hox.setLayoutY(45);
@@ -270,7 +287,7 @@ public class PlanetSystemSimulation extends Application {
 
         systemChange.setOnAction(e -> {
             try {
-                changeSystem();
+                changeSystem(list.getSelectionModel().getSelectedIndex());
             } catch (SQLException ex) {
                 Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -288,7 +305,7 @@ public class PlanetSystemSimulation extends Application {
 
         });
 
-        startBox.getChildren().addAll(startBut, systemChange, label, changeWarning);
+        startBox.getChildren().addAll(startBut, systemChange, label, changeWarning, list);
         startLayout.setCenter(startBox);
         timestep = 0;
         Scene startScreen = new Scene(startLayout, width, height);
@@ -326,12 +343,13 @@ public class PlanetSystemSimulation extends Application {
 
     }
 
-    private void changeSystem() throws SQLException {
-        if (system == planetDao.countSystems()) {
-            system = 1;
-        } else {
-            system++;
-        }
+    private void changeSystem(int i) throws SQLException {
+//        if (system == planetDao.countSystems()) {
+//            system = 1;
+//        } else {
+//            system++;
+//        }
+        system = 1 + i;
     }
 
     private PlanetSystem getPlanets(BorderPane layout) throws Exception {
@@ -468,7 +486,9 @@ public class PlanetSystemSimulation extends Application {
                 timestep = timestep * 5;
             }
             if (e.getCode() == KeyCode.COMMA) {
-                timestep = timestep / 5;
+                if (timestep > 50) {
+                    timestep = timestep / 5;
+                }
             }
             if (e.getCode() == KeyCode.B) {
                 timestep = timestep * -1;
