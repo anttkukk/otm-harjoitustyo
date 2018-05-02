@@ -15,5 +15,6 @@
 | 23.4 	    | 3.5h | Lisätty testejä database luokkiin, lisätty nappi jota painamalla ohjelman planeettajärjestelmä vaihtuu ja tehty ohjelmaa kauniimmaksi sekä tehty koodiin parannuksia ja checkstyle korjauksia |
 | 24.4      | 4h | Lisätty mahdollisuus tehdä jar-tiedosto sekä taisteltu release version kanssa, lisätty testejä ja pikkuparannuksia koodiin tehty |
 | 29.4      | 3h | Korjattu vikoja timestepin kanssa ja lisätty ominaisuus valita systeemi listasta |
+| 3.5       | 5h | Tehty JavaDocceja luokille, päivitetty arkkitehtuuri.md ja siinä oleva luokka kaavio ja tehty käyttö ohje. Tämän lisäksi testejä ja muuta pikkusälää |
 |   |     |    | 
-| Yhteensä: | 39h |     |
+| Yhteensä: | 44h |     |
