@@ -172,7 +172,7 @@ public class PlanetSystemSimulation extends Application {
                 String string = String.format("%.02f", 99.7 * standard / (1.495978707E11));
                 drawer.fillText(string + " au", width * 1 / 3 + 25, height * 7 / 8 - 20);
                 //Warning for too high timestep
-                if (dt > 2000) {
+                if (Math.abs(dt) > 2000) {
                     drawer.fillText("WARNING! Big timesteps can cause big problems!", width * 1 / 3, height * 1 / 8);
                 }
                 //Follow target

@@ -67,4 +67,10 @@ public class PlanetSystemTest {
     public void getFurthestIsWorking() {
         assertEquals("two", system.getFurthest().getName());
     }
+    @Test
+    public void setPlanetsIsWorking() {
+        ArrayList<Planet> newPlanets = new ArrayList<>();
+        system.setPlanets(newPlanets);
+        assertTrue(system.getPlanets().isEmpty());
+    }
 }

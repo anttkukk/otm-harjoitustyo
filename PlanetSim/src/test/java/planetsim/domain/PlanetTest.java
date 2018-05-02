@@ -140,5 +140,15 @@ public class PlanetTest {
         Planet planet2 = new Planet("",0.0,1.0,0.0,0.0,0.0);
         assertTrue(planet.distance(planet2) == 1.0);
     }
+    @Test
+    public void equalsIsWorkingWhenPlanetsAreSame() {
+        Planet planet2 = new Planet("", 1.0, 1.0, 2.0, 2.0, 10);
+        assertTrue(planet.equals(planet2));
+    }
+    @Test
+    public void equalsIsWorkingWhenPlanetsAreNotSame() {
+        Planet planet2 = new Planet("", 0.0, 0.0, 0.0, 0.0, 0.0);
+        assertTrue(!planet.equals(planet2));
+    }
     
 }

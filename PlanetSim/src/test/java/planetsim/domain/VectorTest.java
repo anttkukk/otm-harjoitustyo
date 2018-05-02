@@ -57,6 +57,11 @@ public class VectorTest {
         Vector x = new Vector(1.0, 2.0);
         assertTrue(!v.equals(x));
     }
+    @Test
+    public void vectorEqualsIsWorkingWhenOneComponentIsNotSame() {
+        Vector x = new Vector(2.0, 2.0);
+        assertTrue(!v.equals(x));
+    }
 
     @Test
     public void multiplyIsWorking() {
@@ -74,5 +79,15 @@ public class VectorTest {
         Vector x = new Vector(1.0, 2.0);
         double product = x.dot(v);
         assertTrue(product == 4.0);
+    }
+    @Test
+    public void setXIsWorking() {
+        v.setX(30);
+        assertTrue(v.getX() == 30);
+    }
+    @Test
+    public void setYIsWorking() {
+        v.setY(30);
+        assertTrue(v.getY() == 30);
     }
 }
