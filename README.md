@@ -43,6 +43,8 @@ Javadocin voi luoda suorittamalla komennon
 
 `mvn javadoc:javadoc`
 
+Generoitu JavaDoc löytyy hakemistosta `target/site/apidocs`
+
  
  Suoritettavan jar-tiedoston voi luoda komennolla 
  
