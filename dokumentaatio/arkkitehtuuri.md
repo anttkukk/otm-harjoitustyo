@@ -29,7 +29,7 @@ Planeetat PlanetSystem saa databasesta PlanetDao luokan avulla.
 
 
 Ohjelman luokka/pakkauskaavio on seuraavanlainen:
-![luokkakaavio](https://github.com/anttkukk/otm-harjoitustyo/blob/master/dokumentaatio/luokkakaavio2.png)
+![luokkakaavio](https://github.com/anttkukk/otm-harjoitustyo/blob/master/dokumentaatio/Luokkakaavio2.png)
 
 ### Tietojen pysyväistallennus
 
