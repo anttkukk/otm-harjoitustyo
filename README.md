@@ -13,9 +13,13 @@ Ohjelma on N-kappaleen simulaattori, joka simuloi planeettajärjestelmiä. Kun s
 
 [Arkkitehtuuri](https://github.com/anttkukk/otm-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
 
+[Käyttöohje](https://github.com/anttkukk/otm-harjoitustyo/blob/master/dokumentaatio/kayttoohje.md)
+
 ### Releaset
 
 [Viikko 5](https://github.com/anttkukk/otm-harjoitustyo/releases/tag/viikko5)
+
+[Viikko 6](https://github.com/anttkukk/otm-harjoitustyo/releases/tag/viikko6)
 
 
  ### Komentorivikomennot
