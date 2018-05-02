@@ -8,7 +8,7 @@ Jos database puuttuu, ohjelma luo kyseisen databasen suoritushakemistoon.
 
 Ohjelma käynnistetään komennolla 
 
-`java -jar todoapp.jar`
+`java -jar PlanetSim.jar`
 
 ### Käyttäminen
 
