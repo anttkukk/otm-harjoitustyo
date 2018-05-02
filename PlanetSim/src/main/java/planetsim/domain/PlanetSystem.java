@@ -15,6 +15,10 @@ public class PlanetSystem {
 
     private ArrayList<Planet> planets;
 
+    /**
+     * Constructor for PlanetSystem
+     * @param planets List of Objects in the system
+     */
     public PlanetSystem(ArrayList<Planet> planets) {
         this.planets = planets;
     }
@@ -27,6 +31,10 @@ public class PlanetSystem {
         this.planets = planets;
     }
 
+    /**
+     * Updates the system. Goes through the planets ArrayList calculating new positions, accelerations, velocities and setting them as current values. Lastly updates the old acceleration value to current acceleration so it is used as old acceleration in the next iteration.
+     * @param timestep Timestep used to calculate new values for planets properties.
+     */
     public void update(int timestep) {
         for (Planet planet : planets) {
             planet.setPos(planet.newPos(timestep));
@@ -36,6 +44,11 @@ public class PlanetSystem {
 
         }
     }
+    
+    /**
+     * Returns the furthest planet from the middle of the coordinates
+     * @return Returns the planet which is furthest away
+     */
 
     public Planet getFurthest() {
         double far = 0;

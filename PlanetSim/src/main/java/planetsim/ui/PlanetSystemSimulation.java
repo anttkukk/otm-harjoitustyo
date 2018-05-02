@@ -152,7 +152,7 @@ public class PlanetSystemSimulation extends Application {
                 days = days + 1.0 * timestep / (60 * 60 * 24);
 
                 if (spoopy) {
-                    drawer.drawImage(space, 0, 0, 1100, 700);
+                    drawer.drawImage(space, 0, 0, width, height);
                 } else {
                     drawer.setFill(Color.BLACK);
                     drawer.fillRect(0, 0, width * height, width * height);
@@ -255,7 +255,6 @@ public class PlanetSystemSimulation extends Application {
         label.setTextFill(Color.AZURE);
         Label changeWarning = new Label("System will reset on system change!");
         changeWarning.setTextFill(Color.CORAL);
-
         BorderPane startLayout = new BorderPane();
         Button nappi = new Button("Back!");
         Button toinen = new Button("kakka");
@@ -284,7 +283,6 @@ public class PlanetSystemSimulation extends Application {
             resetScreen();
             timer.start();
         });
-
         systemChange.setOnAction(e -> {
             try {
                 changeSystem(list.getSelectionModel().getSelectedIndex());

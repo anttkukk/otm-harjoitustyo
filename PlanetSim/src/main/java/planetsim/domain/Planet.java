@@ -24,6 +24,15 @@ public class Planet {
     private String name;
     private int drawSize;
 
+    /**
+     * Constructor for a Planet. Colour is randomized and draw size of the planet is always 2.
+     * @param name Name of the Planet
+     * @param posX X-coordinate of the planet's position
+     * @param posY Y-coordinate of the planet's position
+     * @param velX X-coordinate of the planet's velocity
+     * @param velY Y-coordinate of the planet's velocity
+     * @param mass Mass of the object
+     */
     public Planet(String name, double posX, double posY, double velX, double velY, double mass) {
         this.pos = new Vector(posX, posY);
         this.vel = new Vector(velX, velY);
@@ -35,7 +44,16 @@ public class Planet {
         this.name = name;
         this.drawSize = 2;
     }
-
+    /**
+     * Constructor for a planet with user set colour.
+     * @param name Name of the object
+     * @param posX X-coordinate of the planet's position
+     * @param posY Y-coordinate of the planet's position
+     * @param velX X-coordinate of the planet's velocity
+     * @param velY Y-coordinate of the planet's velocity
+     * @param mass Mass of the object
+     * @param color Draw colour of the object
+     */
     public Planet(String name, double posX, double posY, double velX, double velY, double mass, Color color) {
         this.pos = new Vector(posX, posY);
         this.vel = new Vector(velX, velY);
@@ -47,6 +65,17 @@ public class Planet {
         this.drawSize = 3;
     }
 
+    /**
+     * Constructor for Planet with user set everything
+     * @param name Name of the planet
+     * @param posX X-coordinate of the planet's position
+     * @param posY Y-coordinate of the planet's position
+     * @param velX X-coordinate of the planet's velocity
+     * @param velY Y-coordinate of the planet's velocity
+     * @param mass Mass of the Planet
+     * @param color Draw colour of the planet
+     * @param drawSize Draw size of the planet. Should carefully think if user wants to draw bigger than 5
+     */
     public Planet(String name, double posX, double posY, double velX, double velY, double mass, Color color, int drawSize) {
         this.pos = new Vector(posX, posY);
         this.vel = new Vector(velX, velY);
@@ -83,6 +112,13 @@ public class Planet {
         this.vel = vel;
     }
 
+    /**
+     * Calculates a new position vector to planet with a timestep given as a parameter.
+     * If the timestep is 60, the method calculates a new position using planets current velocity to where it would be in 60 seconds. 
+     * @param t used to calculate the new position
+     * @return Returns a vector which is the new position of the planet.
+     *
+     */
     public Vector newPos(int t) {
 
         //Vector newpos = this.pos.add(this.vel.multiply(1.0*t).add(this.oldacc.multiply(1.0/2.0*Math.pow(t, 2))));
@@ -91,6 +127,13 @@ public class Planet {
         return newpos;
     }
 
+    /**
+     * Calculates new acceleration to planet using the sum force from all other planets which it gets in the parameter in an ArrayList
+     * Uses Newton's gravitational force to calculate the acceleration. 
+     * Ignores itself in the ArrayList so acceleration is accurate.
+     * @param planets ArrayList of all the bodies in the star system
+     * @return A vector which is the new acceleration of the planet.
+     */
     public Vector newAcc(ArrayList<Planet> planets) {
         Vector newacc = new Vector(0.0, 0.0);
         for (Planet planet : planets) {
@@ -102,6 +145,13 @@ public class Planet {
         }
         return newacc;
     }
+    
+    /**
+     * Calculates new velocity for the planet using timestep from the parameter. With a timestep of 60, it calculates the velocity to 60 seconds in the future.
+     * 
+     * @param t timestep which is used in the calculation
+     * @return A vector which is the new velocity of the object
+     */
 
     public Vector newVelo(int t) {
         //Vector newvelo = this.vel.add(this.acc.add(this.oldacc).multiply(t*1.0/2.0));
@@ -109,7 +159,7 @@ public class Planet {
 
         return newvelo;
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         Planet planet = (Planet) obj;
@@ -159,6 +209,11 @@ public class Planet {
         this.drawSize = drawSize;
     }
 
+    /**
+     * Calculates the distance to a planet given as a parameter
+     * @param planet The planet it calculates the distance to.
+     * @return The distance to the parameter planet as a double
+     */
     public double distance(Planet planet) {
         return Math.sqrt(Math.pow(this.pos.getX() - planet.getPos().getX(), 2) + Math.pow(this.pos.getY() - planet.getPos().getY(), 2));
     }
@@ -167,6 +222,5 @@ public class Planet {
     public String toString() {
         return this.name;
     }
-    
 
 }

@@ -25,6 +25,16 @@ public class Database {
         init();
     }
 
+    /**
+     * Executes the given query and collects list of objects using a Collector from the database. 
+     * Can be used for exemble for collecting planets from database 
+     * @param <T> Returned ArrayList must be the same type as the Collector
+     * @param query SQL query which will be executed. If query contains parameters they are marked as ? and put to parameters section.
+     * @param col Collector which creates objects from SQL query.
+     * @param params Parameters for SQL query
+     * @return Return one or a list of objects created from the SQL query
+     * @throws SQLException if SQL query fails
+     */
     public <T> ArrayList<T> queryAndCollect(String query, Collector<T> col, Object... params) throws SQLException {
         ArrayList<T> rivit = new ArrayList<>();
         PreparedStatement stmt = connection.prepareStatement(query);
@@ -42,7 +52,30 @@ public class Database {
         stmt.close();
         return rivit;
     }
-
+    
+    /**
+     * Can be used to query things from database without a collector.
+     * @param query The SQL query to be executed
+     * @param params Optional parameters for SQL query
+     * @return Returns a ResultSet of the SQL query
+     * @throws SQLException if SQL query fails
+     */
+    public ResultSet queryWithoutCollector(String query, Object... params) throws SQLException {
+        PreparedStatement stmt = connection.prepareStatement(query);
+        for (int i = 0; i < params.length; i++) {
+            stmt.setObject(i + 1, params[i]);
+        }
+        ResultSet result = stmt.executeQuery();
+        return result;
+    }
+    
+    /**
+     * Can be used to update values to database. 
+     * @param updateQuery SQL query to be used for saving things in to the database
+     * @param params Optional parameters for the query
+     * @return Returns number of updates done to the database
+     * @throws SQLException if SQL query fails
+     */
     public int update(String updateQuery, Object... params) throws SQLException {
         PreparedStatement stmt = connection.prepareStatement(updateQuery);
 
@@ -65,7 +98,7 @@ public class Database {
         try (Connection conn = getConnection()) {
             Statement st = conn.createStatement();
 
-            // suoritetaan komennot
+            // executing commands
             for (String sentence : sentences) {
                 System.out.println("Running command >> " + sentence);
                 st.executeUpdate(sentence);
@@ -77,7 +110,12 @@ public class Database {
         }
     }
 
-    public Connection getConnection() throws SQLException {
+    /**
+     * Gets connection to database
+     * @return Returns Connection to database
+     * @throws SQLException if database isn't found
+     */
+    public Connection getConnection() throws SQLException{
         return DriverManager.getConnection(databaseAddress);
     }
 

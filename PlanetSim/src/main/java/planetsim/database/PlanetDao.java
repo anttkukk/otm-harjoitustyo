@@ -47,6 +47,13 @@ public class PlanetDao implements Dao<Planet, Integer> {
         return planets;
     }
 
+    /**
+     * Finds all from specific system with integer key
+     *
+     * @param key Used to identify system with its id
+     * @return Returns ArrayList of all the planets in the system
+     * @throws SQLException if SQL query fails
+     */
     public ArrayList<Planet> findAllFromSystem(Integer key) throws SQLException {
         ArrayList<Planet> planets = this.db.queryAndCollect("SELECT p.* FROM System s, Planet p, Systemplanet sp WHERE s.id = sp.system AND sp.planet = p.id AND s.id = ?", new PlanetCollector(), key);
         return planets;
@@ -57,46 +64,59 @@ public class PlanetDao implements Dao<Planet, Integer> {
         this.db.update("DELETE FROM Planet WHERE name = ?", key);
     }
 
+    /**
+     * Counts number of systems in the database
+     *
+     * @return Returns number of systems as an Integer
+     * @throws SQLException if SQL query fails
+     */
     public Integer countSystems() throws SQLException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:database.db");
-        PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) as systems FROM System;");
-        ResultSet result = stmt.executeQuery();
+        ResultSet result = this.db.queryWithoutCollector("SELECT COUNT(*) as systems FROM System;");
         Integer i = 0;
         while (result.next()) {
             i = Integer.parseInt(result.getString("systems"));
         }
-        conn.close();
         return i;
     }
 
+    /**
+     * Counts all planets in the database
+     *
+     * @return Integer value of all planets in database
+     * @throws SQLException if SQL query fails
+     */
     public Integer countPlanets() throws SQLException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:database.db");
-        PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) as planets FROM Planet;");
-        ResultSet result = stmt.executeQuery();
+        ResultSet result = this.db.queryWithoutCollector("SELECT COUNT(*) as planets FROM Planet;");
         Integer i = 0;
         while (result.next()) {
             i = Integer.parseInt(result.getString("planets"));
         }
-        conn.close();
         return i;
     }
 
+    /**
+     * Gets the names of all systems in the database
+     * @return ArrayList of all the names of the systems in the database
+     * @throws SQLException if SQL query fails
+     */
     public ArrayList<String> getSystems() throws SQLException {
         ArrayList<String> systems = new ArrayList<>();
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:database.db");
-        PreparedStatement stmt = conn.prepareStatement("SELECT name FROM system;");
-        ResultSet result = stmt.executeQuery();
+        ResultSet result = this.db.queryWithoutCollector("SELECT name FROM system;");
         while (result.next()) {
             systems.add(result.getString("name"));
         }
         return systems;
     }
-
+    
+    /**
+     * Gets the name of a system with id key
+     * @param key Key used to identify the system which is searched
+     * @return String of the name of the system
+     * @throws SQLException if SQL query fails
+     */
     public String getSystemName(int key) throws SQLException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:database.db");
-        PreparedStatement stmt = conn.prepareStatement("SELECT name FROM system WHERE id = ?;");
-        stmt.setObject(1, key);
-        ResultSet result = stmt.executeQuery();
+
+        ResultSet result = this.db.queryWithoutCollector("SELECT name FROM system WHERE id = ?;", key);
         return result.getString("name");
     }
 
