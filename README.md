@@ -38,6 +38,11 @@ Ohjelma on N-kappaleen simulaattori, joka simuloi planeettajärjestelmiä. Kun s
  `mvn jxr:jxr checkstyle:checkstyle`
  
  Chechstyleä voi tarkastalla avaamalla selaimella tiedosto target/site/checkstyle.html
+
+Javadocin voi luoda suorittamalla komennon 
+
+`mvn javadoc:javadoc`
+
  
  Suoritettavan jar-tiedoston voi luoda komennolla 
  
