@@ -26,10 +26,13 @@ public class Database {
     }
 
     /**
-     * Executes the given query and collects list of objects using a Collector from the database. 
-     * Can be used for exemble for collecting planets from database 
+     * Executes the given query and collects list of objects using a Collector
+     * from the database. Can be used for exemble for collecting planets from
+     * database
+     *
      * @param <T> Returned ArrayList must be the same type as the Collector
-     * @param query SQL query which will be executed. If query contains parameters they are marked as ? and put to parameters section.
+     * @param query SQL query which will be executed. If query contains
+     * parameters they are marked as ? and put to parameters section.
      * @param col Collector which creates objects from SQL query.
      * @param params Parameters for SQL query
      * @return Return one or a list of objects created from the SQL query
@@ -52,9 +55,10 @@ public class Database {
         stmt.close();
         return rivit;
     }
-    
+
     /**
      * Can be used to query things from database without a collector.
+     *
      * @param query The SQL query to be executed
      * @param params Optional parameters for SQL query
      * @return Returns a ResultSet of the SQL query
@@ -68,10 +72,12 @@ public class Database {
         ResultSet result = stmt.executeQuery();
         return result;
     }
-    
+
     /**
-     * Can be used to update values to database. 
-     * @param updateQuery SQL query to be used for saving things in to the database
+     * Can be used to update values to database.
+     *
+     * @param updateQuery SQL query to be used for saving things in to the
+     * database
      * @param params Optional parameters for the query
      * @return Returns number of updates done to the database
      * @throws SQLException if SQL query fails
@@ -112,10 +118,11 @@ public class Database {
 
     /**
      * Gets connection to database
+     *
      * @return Returns Connection to database
      * @throws SQLException if database isn't found
      */
-    public Connection getConnection() throws SQLException{
+    public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(databaseAddress);
     }
 
