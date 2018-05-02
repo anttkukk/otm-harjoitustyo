@@ -18,12 +18,14 @@ Käyttöliittymä on pyritty eristämään sovelluslogiikasta.
 
 ### Sovelluslogiikka
 
-Sovelluksen toiminnallisuudesta vastaavat luokat [Planet](https://github.com/anttkukk/otm-harjoitustyo/blob/master/PlanetSim/src/main/java/planetsim/domain/Planet.java) ja [PlanetSystem](https://github.com/anttkukk/otm-harjoitustyo/blob/master/PlanetSim/src/main/java/planetsim/domain/PlanetSystem.java)
-Planet luokka käyttää hyväkseen luokkaa [Vector](https://github.com/anttkukk/otm-harjoitustyo/blob/master/PlanetSim/src/main/java/planetsim/domain/Vector.java). Planet luokan paikka, nopeus ja kiihtyvyys ovat vektoreita. 
+Sovelluksen toiminnallisuudesta vastaavat luokat [Planet](https://github.com/anttkukk/otm-harjoitustyo/blob/master/PlanetSim/src/main/java/planetsim/domain/Planet.java) ja [PlanetSystem](https://github.com/anttkukk/otm-harjoitustyo/blob/master/PlanetSim/src/main/java/planetsim/domain/PlanetSystem.java).
+ Planet luokka käyttää hyväkseen luokkaa [Vector](https://github.com/anttkukk/otm-harjoitustyo/blob/master/PlanetSim/src/main/java/planetsim/domain/Vector.java). Planet luokan paikka, nopeus ja kiihtyvyys ovat vektoreita. 
 Planet luokassa on metodit numeerisen integroinnin suoritukseen:
 * Vector newPos(int t) – laskee uuden paikan vektorin aika-askeleen t päähän
 * Vector newAcc(ArrayList<Planet> planets) – laskee uuden kiihtyvyyden muiden kappaleiden voimien summana
 * Vector newVelo(int t) – laskee uuden nopeuden vektorin aika-askeleen t päähän
+
+
 PlanetSystem luokka pitää sisällään listan planeetoista ja metodin update(int timestep), jonka avulla numeerinen integrointi voidaan suorittaa. Tätä metodia kutsutaan käyttöliittymässä animaatiossa, jolloin systeemi päivittyy animaation mukana.
 Planeetat PlanetSystem saa databasesta PlanetDao luokan avulla.
 
