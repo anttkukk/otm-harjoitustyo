@@ -89,6 +89,13 @@ public class PlanetDao implements Dao<Planet, Integer> {
         }
         return systems;
     }
+    public String getSystemName(int key) throws SQLException {
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:database.db");
+        PreparedStatement stmt = conn.prepareStatement("SELECT name FROM system WHERE id = ?;");
+        stmt.setObject(1, key);
+        ResultSet result = stmt.executeQuery();
+        return result.getString("name");
+    }
             
 
 }

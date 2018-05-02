@@ -61,7 +61,7 @@ public class Database {
         List<String> sentences = null;
         sentences = sqliteCommands();
 
-        // "try with resources" sulkee resurssin automaattisesti lopuksi
+        // "try with resources" closes the resource automaticly in the end
         try (Connection conn = getConnection()) {
             Statement st = conn.createStatement();
 
@@ -78,21 +78,6 @@ public class Database {
     }
 
     public Connection getConnection() throws SQLException {
-        if (this.databaseAddress.contains("postgres")) {
-            try {
-                URI dbUri = new URI(databaseAddress);
-
-                String username = dbUri.getUserInfo().split(":")[0];
-                String password = dbUri.getUserInfo().split(":")[1];
-                String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
-
-                return DriverManager.getConnection(dbUrl, username, password);
-            } catch (Throwable t) {
-                System.out.println("Error: " + t.getMessage());
-                t.printStackTrace();
-            }
-        }
-
         return DriverManager.getConnection(databaseAddress);
     }
 

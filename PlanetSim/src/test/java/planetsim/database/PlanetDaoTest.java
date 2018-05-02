@@ -77,7 +77,7 @@ public class PlanetDaoTest {
         assertTrue(i > 0);
     }
     @Test
-    public void testMethod() throws SQLException {
+    public void countPlanetsIsWorking() throws SQLException {
         Integer i = planetDao.countPlanets();
         assertTrue(i > 0);
     }
@@ -91,5 +91,18 @@ public class PlanetDaoTest {
         planetDao.delete("test123");
         Integer end = planetDao.countPlanets();
         assertTrue(original.equals(end) && original < added);
+    }
+    @Test
+    public void getSystemsIsWorking() throws SQLException {
+        ArrayList<String> systems = planetDao.getSystems();
+        String firstName = systems.get(0);
+        assertTrue(systems.size() >= 2 && firstName.equals("Inner planets"));
+    }
+    
+    @Test
+    public void getSystemNameIsWorking() throws SQLException {
+        String name = planetDao.getSystemName(1);
+        assertEquals(name,"Inner planets");
+        
     }
 }

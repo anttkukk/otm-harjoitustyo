@@ -251,7 +251,7 @@ public class PlanetSystemSimulation extends Application {
         //startBox.setStyle("-fx-background-color: darksalmon");
         Button startBut = new Button("start!");
         Button systemChange = new Button("Change system");
-        Label label = new Label("Selected system: " + system);
+        Label label = new Label("Selected system: " + planetDao.getSystemName(system));
         label.setTextFill(Color.AZURE);
         Label changeWarning = new Label("System will reset on system change!");
         changeWarning.setTextFill(Color.CORAL);
@@ -292,7 +292,11 @@ public class PlanetSystemSimulation extends Application {
                 Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            label.setText("Selected system: " + system);
+            try {
+                label.setText("Selected system: " + planetDao.getSystemName(system));
+            } catch (SQLException ex) {
+                Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             try {
                 starsystem = getPlanets(layout);
