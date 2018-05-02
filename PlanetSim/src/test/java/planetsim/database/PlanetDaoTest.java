@@ -20,6 +20,7 @@ import planetsim.domain.Planet;
  * @author anttkukk
  */
 public class PlanetDaoTest {
+
     private Database db;
     private PlanetDao planetDao;
 
@@ -54,34 +55,37 @@ public class PlanetDaoTest {
         ArrayList<Planet> planets = planetDao.findAllFromSystem(1);
         assertTrue(planets.size() == 9);
     }
-    
+
     @Test
     public void findOneIsWorking() throws SQLException {
         Planet p = planetDao.findOne(1);
         assertEquals(p.getName(), "Sun");
     }
+
     @Test
     public void findOneWontFindIfThereIsNoSuchPlanet() throws SQLException {
         Planet p = planetDao.findOne(0);
         assertNull(p);
     }
-    
+
     @Test
     public void findAllIsWorking() throws SQLException {
         ArrayList<Planet> planets = planetDao.findAll();
         assertTrue(planets.size() > 0);
     }
+
     @Test
     public void countSystemsIsWorking() throws SQLException {
         Integer i = planetDao.countSystems();
         assertTrue(i > 0);
     }
+
     @Test
     public void countPlanetsIsWorking() throws SQLException {
         Integer i = planetDao.countPlanets();
         assertTrue(i > 0);
     }
-    
+
     @Test
     public void addingAndDeletingWorks() throws SQLException {
         Integer original = planetDao.countPlanets();
@@ -92,17 +96,18 @@ public class PlanetDaoTest {
         Integer end = planetDao.countPlanets();
         assertTrue(original.equals(end) && original < added);
     }
+
     @Test
     public void getSystemsIsWorking() throws SQLException {
         ArrayList<String> systems = planetDao.getSystems();
         String firstName = systems.get(0);
         assertTrue(systems.size() >= 2 && firstName.equals("Inner planets"));
     }
-    
+
     @Test
     public void getSystemNameIsWorking() throws SQLException {
         String name = planetDao.getSystemName(1);
-        assertEquals(name,"Inner planets");
-        
+        assertEquals(name, "Inner planets");
+
     }
 }

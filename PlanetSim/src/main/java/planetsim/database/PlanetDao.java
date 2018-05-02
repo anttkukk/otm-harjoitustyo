@@ -68,6 +68,7 @@ public class PlanetDao implements Dao<Planet, Integer> {
         conn.close();
         return i;
     }
+
     public Integer countPlanets() throws SQLException {
         Connection conn = DriverManager.getConnection("jdbc:sqlite:database.db");
         PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) as planets FROM Planet;");
@@ -79,6 +80,7 @@ public class PlanetDao implements Dao<Planet, Integer> {
         conn.close();
         return i;
     }
+
     public ArrayList<String> getSystems() throws SQLException {
         ArrayList<String> systems = new ArrayList<>();
         Connection conn = DriverManager.getConnection("jdbc:sqlite:database.db");
@@ -89,6 +91,7 @@ public class PlanetDao implements Dao<Planet, Integer> {
         }
         return systems;
     }
+
     public String getSystemName(int key) throws SQLException {
         Connection conn = DriverManager.getConnection("jdbc:sqlite:database.db");
         PreparedStatement stmt = conn.prepareStatement("SELECT name FROM system WHERE id = ?;");
@@ -96,6 +99,5 @@ public class PlanetDao implements Dao<Planet, Integer> {
         ResultSet result = stmt.executeQuery();
         return result.getString("name");
     }
-            
 
 }

@@ -172,8 +172,8 @@ public class PlanetSystemSimulation extends Application {
                 String string = String.format("%.02f", 99.7 * standard / (1.495978707E11));
                 drawer.fillText(string + " au", width * 1 / 3 + 25, height * 7 / 8 - 20);
                 //Warning for too high timestep
-                if(dt > 2000){
-                    drawer.fillText("WARNING! Big timesteps can cause big problems!", width * 1/3, height * 1/8);
+                if (dt > 2000) {
+                    drawer.fillText("WARNING! Big timesteps can cause big problems!", width * 1 / 3, height * 1 / 8);
                 }
                 //Follow target
                 if (follow) {
@@ -260,7 +260,7 @@ public class PlanetSystemSimulation extends Application {
         Button nappi = new Button("Back!");
         Button toinen = new Button("kakka");
         //layout.getChildren().add(nappi);
-        
+
         ArrayList<String> systems = planetDao.getSystems();
         ListView<String> list = new ListView<>();
         ObservableList<String> items = FXCollections.observableArrayList(systems);
