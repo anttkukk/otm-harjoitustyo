@@ -18,6 +18,7 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -26,6 +27,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -90,6 +92,7 @@ public class PlanetSystemSimulation extends Application {
     double changeX = 0;
     double changeY = 0;
     int circlesSize = 0;
+    ArrayList<String> systems = new ArrayList<>();
 
     public static void main(String[] args) {
         launch(args);
@@ -242,32 +245,95 @@ public class PlanetSystemSimulation extends Application {
         //layout.getChildren().addAll(circles);
 
         //Start screen and buttons 
-        VBox startBox = new VBox();
-        startBox.setAlignment(Pos.CENTER);
-        startBox.setSpacing(5);
-        startBox.setPadding(new Insets(50, 200, 0, 0));
-        //backgroundImage
-        startBox.setStyle("-fx-background-image: url(" + PLANETURL + ")");
+//        VBox startBox = new VBox();
+//        startBox.setAlignment(Pos.CENTER);
+//        startBox.setSpacing(5);
+//        startBox.setPadding(new Insets(50, 200, 0, 0));
+//        //backgroundImage
+//        startBox.setStyle("-fx-background-image: url(" + PLANETURL + ")");
         //startBox.setStyle("-fx-background-color: darksalmon");
-        Button startBut = new Button("start!");
-        Button systemChange = new Button("Change system");
-        Label label = new Label("Selected system: " + planetDao.getSystemName(system));
-        label.setTextFill(Color.AZURE);
-        Label changeWarning = new Label("System will reset on system change!");
-        changeWarning.setTextFill(Color.CORAL);
-        BorderPane startLayout = new BorderPane();
+//        Button startBut = new Button("start!");
+//        Button systemChange = new Button("Change system");
+//        Label label = new Label("Selected system: " + planetDao.getSystemName(system));
+//        label.setTextFill(Color.AZURE);
+//        Label changeWarning = new Label("System will reset on system change!");
+//        changeWarning.setTextFill(Color.CORAL);
+//        BorderPane startLayout = new BorderPane();
         Button nappi = new Button("Back!");
         Button toinen = new Button("kakka");
         //layout.getChildren().add(nappi);
 
-        ArrayList<String> systems = planetDao.getSystems();
-        ListView<String> list = new ListView<>();
-        ObservableList<String> items = FXCollections.observableArrayList(systems);
-        list.setItems(items);
-        list.setMaxWidth(150.0);
-        list.setPrefHeight(70);
-        list.getSelectionModel().select(0);
+//        systems = planetDao.getSystems();
+//        ListView<String> list = new ListView<>();
+//        ObservableList<String> items = FXCollections.observableArrayList(systems);
+//        list.setItems(items);
+//        list.setMaxWidth(150.0);
+//        list.setPrefHeight(70);
+//        list.getSelectionModel().select(0);
+//        HBox addAndDeleteSystemBox = new HBox();
+//        addAndDeleteSystemBox.setSpacing(10);
+//        addAndDeleteSystemBox.setAlignment(Pos.CENTER);
+//        Button newSystem = new Button("Add system");
+//        Button deleteSystem = new Button("Delete system");
+//        addAndDeleteSystemBox.getChildren().addAll(newSystem, deleteSystem);
+        VBox changeBox = new VBox();
+        changeBox.setAlignment(Pos.CENTER);
+        changeBox.setStyle("-fx-background-color: darkgray");
+        Label addSysLabel = new Label("Give system name:");
+        TextField textfield = new TextField();
+        textfield.setMaxWidth(150);
+        Label addSysWarning = new Label("Name can't be empty!");
+        Button addButton = new Button("Create System!");
+        changeBox.getChildren().addAll(addSysLabel, textfield, addSysWarning, addButton);
 
+        BorderPane addSystem = new BorderPane();
+        addSystem.setCenter(changeBox);
+        Scene systemAdd = new Scene(addSystem, width, height);
+
+        BorderPane addPlanets = new BorderPane();
+        VBox planetBox = new VBox();
+        planetBox.setAlignment(Pos.CENTER);
+        planetBox.setStyle("-fx-background-color: darkgray");
+        ArrayList<String> planetNames = planetDao.getAllPlanetNames();
+        ListView<String> nameList = new ListView<>();
+        ObservableList<String> nameItems = FXCollections.observableArrayList(planetNames);
+        nameList.setItems(nameItems);
+        nameList.setMaxWidth(400);
+        nameList.setPrefHeight(200);
+        nameList.getSelectionModel().select(0);
+        Label chooseLabel = new Label("Choose object to system!");
+        HBox addAndDone = new HBox();
+        addAndDone.setAlignment(Pos.CENTER);
+        addAndDone.setSpacing(10);
+        Button addPlanet = new Button("Add Object!");
+        Button finishSystem = new Button("Finish system!");
+        addAndDone.getChildren().addAll(addPlanet, finishSystem);
+        planetBox.getChildren().addAll(chooseLabel, nameList, addAndDone);
+        addPlanets.setCenter(planetBox);
+        Scene planetScene = new Scene(addPlanets, width, height);
+        addButton.setOnAction(e -> {
+            if (!textfield.getText().trim().isEmpty()) {
+                try {
+                    planetDao.addSystem(textfield.getText());
+                    window.setScene(planetScene);
+                } catch (SQLException ex) {
+                    Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+
+//        newSystem.setOnAction(e -> {
+//            window.setScene(systemAdd);
+//        });
+//        deleteSystem.setOnAction(e -> {
+//            try {
+//                if (list.getSelectionModel().getSelectedIndex() > 1) {
+//                    planetDao.deleteSystem(list.getSelectionModel().getSelectedItem());
+//                }
+//            } catch (SQLException ex) {
+//                Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        });
         HBox hox = new HBox();
         hox.setLayoutX(100);
         hox.setLayoutY(45);
@@ -276,6 +342,132 @@ public class PlanetSystemSimulation extends Application {
         layout.getChildren().add(hox);
         Scene scene = new Scene(layout);
 
+//        startBut.setOnAction(e -> {
+//            window.setScene(scene);
+//            timestep = ogTimestep;
+//            followId = 0;
+//            resetScreen();
+//            timer.start();
+//        });
+//        systemChange.setOnAction(e -> {
+//            try {
+//                changeSystem(list.getSelectionModel().getSelectedIndex());
+//            } catch (SQLException ex) {
+//                Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//
+//            try {
+//                label.setText("Selected system: " + planetDao.getSystemName(system));
+//            } catch (SQLException ex) {
+//                Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//
+//            try {
+//                starsystem = getPlanets(layout);
+//            } catch (Exception ex) {
+//                Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            standard = starsystem.getFurthest().getPos().length() / 300;
+//            ogStandard = standard;
+//            days = 0.0;
+//
+//        });
+//
+//        startBox.getChildren().addAll(startBut, systemChange, label, changeWarning, list, addAndDeleteSystemBox);
+//        startLayout.setCenter(startBox);
+//        timestep = 0;
+//        Scene startScreen = new Scene(startLayout, width, height);
+        finishSystem.setOnAction(e -> {
+            try {
+                window.setScene(setStartScreen(window, systemAdd, scene, timer, layout));
+            } catch (SQLException ex) {
+                Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        nappi.setOnAction(e -> {
+            try {
+                window.setScene(setStartScreen(window, systemAdd, scene, timer, layout));
+            } catch (SQLException ex) {
+                Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            normalTimestep = timestep;
+            timestep = 0;
+            timer.stop();
+        });
+        toinen.setOnAction(e -> {
+            spoopy = !spoopy;
+        });
+
+        HBox hbox = new HBox();
+        hbox.setPadding(new Insets(1, 1, 1, 1));
+        hbox.setSpacing(10);
+        hbox.setStyle("-fx-background-color: #336699;");
+        //hbox.getChildren().addAll(nappi, toinen);
+        StackPane stackpane = new StackPane();
+        //layout.setTop(hbox);
+//        start screen:
+
+        window.setScene(setStartScreen(window, systemAdd, scene, timer, layout));
+
+        window.show();
+
+        //MOVE CANVAS
+        canvas.setOnMouseMoved(e -> mouseCoord(e));
+        dragScreen(canvas);
+        create(canvas);
+        clickPlanets(canvas);
+
+        controls(scene, layout);
+
+    }
+
+    private Scene setStartScreen(Stage window, Scene systemAdd, Scene scene, AnimationTimer timer, BorderPane layout) throws SQLException {
+        BorderPane startLayout = new BorderPane();
+        VBox startBox = new VBox();
+        startBox.setAlignment(Pos.CENTER);
+        startBox.setSpacing(5);
+        startBox.setPadding(new Insets(50, 200, 0, 0));
+        
+        //backgroundImage
+        startBox.setStyle("-fx-background-image: url(" + PLANETURL + ")");
+        
+        Button startBut = new Button("start!");
+        Button systemChange = new Button("Change system");
+        Label label = new Label("Selected system: " + planetDao.getSystemName(system));
+        label.setTextFill(Color.AZURE);
+        Label changeWarning = new Label("System will reset on system change!");
+        changeWarning.setTextFill(Color.CORAL);
+        
+        systems = planetDao.getSystems();
+        ListView<String> list = new ListView<>();
+        ObservableList<String> items = FXCollections.observableArrayList(systems);
+        list.setItems(items);
+        list.setMaxWidth(150.0);
+        list.setPrefHeight(70);
+        list.getSelectionModel().select(0);
+        
+        HBox addAndDeleteSystemBox = new HBox();
+        addAndDeleteSystemBox.setSpacing(10);
+        addAndDeleteSystemBox.setAlignment(Pos.CENTER);
+        Button newSystem = new Button("Add system");
+        Button deleteSystem = new Button("Delete system");
+        addAndDeleteSystemBox.getChildren().addAll(newSystem, deleteSystem);
+        
+        newSystem.setOnAction(e -> {
+            window.setScene(systemAdd);
+        });
+        
+        deleteSystem.setOnAction(e -> {
+            try {
+                if (list.getSelectionModel().getSelectedIndex() > 1) {
+                    planetDao.deleteSystem(list.getSelectionModel().getSelectedItem());
+                    window.setScene(setStartScreen(window, systemAdd, scene, timer, layout));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        
         startBut.setOnAction(e -> {
             window.setScene(scene);
             timestep = ogTimestep;
@@ -307,42 +499,9 @@ public class PlanetSystemSimulation extends Application {
 
         });
 
-        startBox.getChildren().addAll(startBut, systemChange, label, changeWarning, list);
+        startBox.getChildren().addAll(startBut, systemChange, label, changeWarning, list, addAndDeleteSystemBox);
         startLayout.setCenter(startBox);
-        timestep = 0;
-        Scene startScreen = new Scene(startLayout, width, height);
-
-        nappi.setOnAction(e -> {
-            window.setScene(startScreen);
-            normalTimestep = timestep;
-            timestep = 0;
-            timer.stop();
-        });
-        toinen.setOnAction(e -> {
-            spoopy = !spoopy;
-        });
-
-        HBox hbox = new HBox();
-        hbox.setPadding(new Insets(1, 1, 1, 1));
-        hbox.setSpacing(10);
-        hbox.setStyle("-fx-background-color: #336699;");
-        //hbox.getChildren().addAll(nappi, toinen);
-        StackPane stackpane = new StackPane();
-        //layout.setTop(hbox);
-//        start screen:
-
-        window.setScene(startScreen);
-
-        window.show();
-
-        //MOVE CANVAS
-        canvas.setOnMouseMoved(e -> mouseCoord(e));
-        dragScreen(canvas);
-        create(canvas);
-        clickPlanets(canvas);
-
-        controls(scene, layout);
-
+        return new Scene(startLayout, width, height);
     }
 
     private void changeSystem(int i) throws SQLException {
@@ -480,7 +639,7 @@ public class PlanetSystemSimulation extends Application {
                     timestep = 0;
                 }
             }
-            if (e.getCode() == KeyCode.SPACE) {
+            if (e.getCode() == KeyCode.BACK_SPACE) {
                 timestep = ogTimestep;
 
             }

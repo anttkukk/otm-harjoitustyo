@@ -76,6 +76,7 @@ public class PlanetDao implements Dao<Planet, Integer> {
         while (result.next()) {
             i = Integer.parseInt(result.getString("systems"));
         }
+        result.close();
         return i;
     }
 
@@ -91,25 +92,29 @@ public class PlanetDao implements Dao<Planet, Integer> {
         while (result.next()) {
             i = Integer.parseInt(result.getString("planets"));
         }
+        result.close();
         return i;
     }
 
     /**
      * Gets the names of all systems in the database
+     *
      * @return ArrayList of all the names of the systems in the database
      * @throws SQLException if SQL query fails
      */
     public ArrayList<String> getSystems() throws SQLException {
         ArrayList<String> systems = new ArrayList<>();
-        ResultSet result = this.db.queryWithoutCollector("SELECT name FROM system;");
+        ResultSet result = this.db.queryWithoutCollector("SELECT name FROM system ORDER BY id;");
         while (result.next()) {
             systems.add(result.getString("name"));
         }
+        result.close();
         return systems;
     }
-    
+
     /**
      * Gets the name of a system with id key
+     *
      * @param key Key used to identify the system which is searched
      * @return String of the name of the system
      * @throws SQLException if SQL query fails
@@ -117,7 +122,44 @@ public class PlanetDao implements Dao<Planet, Integer> {
     public String getSystemName(int key) throws SQLException {
 
         ResultSet result = this.db.queryWithoutCollector("SELECT name FROM system WHERE id = ?;", key);
-        return result.getString("name");
+        String name = result.getString("name");
+        result.close();
+        return name;
+    }
+
+    /**
+     * Finds names of all the planets in the database
+     *
+     * @return ArrayList of planet names
+     * @throws SQLException if SQL query fails
+     */
+    public ArrayList<String> getAllPlanetNames() throws SQLException {
+        ArrayList<String> names = new ArrayList<>();
+        ResultSet result = this.db.queryWithoutCollector("SELECT name FROM planet ORDER BY id");
+        while (result.next()) {
+            names.add(result.getString("name"));
+        }
+        result.close();
+        return names;
+    }
+
+    /**
+     * Adds a new system to database
+     *
+     * @param name Name of the system
+     * @throws SQLException if SQL query fails
+     */
+    public void addSystem(String name) throws SQLException {
+        this.db.update("INSERT INTO System(name) VALUES (?)", name);
+    }
+    
+    /**
+     * Deletes a system from database
+     * @param name Name of the planet to be deleted
+     * @throws SQLException 
+     */
+    public void deleteSystem(String name) throws SQLException {
+        this.db.update("DELETE FROM System WHERE name = ?", name);
     }
 
 }
