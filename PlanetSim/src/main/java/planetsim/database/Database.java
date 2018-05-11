@@ -27,7 +27,7 @@ public class Database {
 
     /**
      * Executes the given query and collects list of objects using a Collector
-     * from the database. Can be used for exemble for collecting planets from
+     * from the database. Can be used for examble for collecting planets from
      * database
      *
      * @param <T> Returned ArrayList must be the same type as the Collector
@@ -39,7 +39,7 @@ public class Database {
      * @throws SQLException if SQL query fails
      */
     public <T> ArrayList<T> queryAndCollect(String query, Collector<T> col, Object... params) throws SQLException {
-        ArrayList<T> rivit = new ArrayList<>();
+        ArrayList<T> lines = new ArrayList<>();
         PreparedStatement stmt = connection.prepareStatement(query);
         for (int i = 0; i < params.length; i++) {
             stmt.setObject(i + 1, params[i]);
@@ -48,29 +48,53 @@ public class Database {
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
-            rivit.add(col.collect(rs));
+            lines.add(col.collect(rs));
         }
 
         rs.close();
         stmt.close();
-        return rivit;
+        return lines;
     }
-
     /**
-     * Can be used to query things from database without a collector.
-     *
-     * @param query The SQL query to be executed
-     * @param params Optional parameters for SQL query
-     * @return Returns a ResultSet of the SQL query
+     * Executes query and returns integer value from it
+     * @param query SQL query as a string
+     * @param column Name of the column in the database where the integer comes from
+     * @param params Parameters for the SQL query
+     * @return Returns integer value
      * @throws SQLException if SQL query fails
      */
-    public ResultSet queryWithoutCollector(String query, Object... params) throws SQLException {
+    public Integer queryInteger(String query, String column, Object... params) throws SQLException {
         PreparedStatement stmt = connection.prepareStatement(query);
         for (int i = 0; i < params.length; i++) {
             stmt.setObject(i + 1, params[i]);
         }
         ResultSet result = stmt.executeQuery();
-        return result;
+        Integer i = result.getInt(column);
+        result.close();
+        stmt.close();
+        return i;
+    }
+    /**
+     * Executes query to database and returns String ArrayList from it
+     * @param query The SQL query to be executed
+     * @param column The column from which the strings come from
+     * @param params Parameters for the SQL query
+     * @return ArrayList of the strings from the query
+     * @throws SQLException If SQL query fails
+     */
+    public ArrayList<String> queryStringList(String query, String column, Object... params) throws SQLException {
+        ArrayList<String> lines = new ArrayList<>();
+        PreparedStatement stmt = connection.prepareStatement(query);
+        for (int i = 0; i < params.length; i++) {
+            stmt.setObject(i + 1, params[i]);
+        }
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            lines.add(rs.getString(column));
+        }
+        rs.close();
+        stmt.close();
+        return lines;
     }
 
     /**

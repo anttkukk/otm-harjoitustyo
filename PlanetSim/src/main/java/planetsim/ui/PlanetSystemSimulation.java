@@ -197,15 +197,11 @@ public class PlanetSystemSimulation extends Application {
 
                         drawer.drawImage(ussr, midWidth + p.getPos().getX() / standard, midHeight + p.getPos().getY() / standard, 430, 400);
 
-//                        drawer.fillText("Pirtti ei aio\npitää tupareita", width / 2 + p.getPos().getX() / standard, height / 2 + p.getPos().getY() / standard);
                     } else if (spoopy) {
                         drawer.drawImage(uusr, midWidth + p.getPos().getX() / standard, midHeight + p.getPos().getY() / standard, 300, 300);
                     } else {
-                        //drawer.fillOval(midWidth + p.getPos().getX() / standard - 2, midHeight + p.getPos().getY() / standard - 2, 5, 5);
-
                         circles.get(i).setCenterX(midWidth + p.getPos().getX() / standard);
                         circles.get(i).setCenterY(midHeight + p.getPos().getY() / standard);
-                        //if(planets.get(i).getPos().length() > )
                     }
                     i++;
                 }
@@ -536,11 +532,6 @@ public class PlanetSystemSimulation extends Application {
     }
 
     private void changeSystem(int i) throws SQLException {
-//        if (system == planetDao.countSystems()) {
-//            system = 1;
-//        } else {
-//            system++;
-//        }
         system = 1 + i;
     }
 
@@ -607,7 +598,6 @@ public class PlanetSystemSimulation extends Application {
                         createY = (e.getSceneY() - midHeight) * standard;
                         mouseX = e.getSceneX();
                         mouseY = e.getSceneY();
-                        //line.setVisible(true);
                         draw = true;
                     }
                 }
@@ -626,7 +616,6 @@ public class PlanetSystemSimulation extends Application {
                         Planet newP = new Planet(null, createX, createY, createVelX, createVelY, 0);
                         planets.add(newP);
                         circles.add(makeCircle(newP));
-                        //line.setVisible(false);
                         draw = false;
                     }
                 }

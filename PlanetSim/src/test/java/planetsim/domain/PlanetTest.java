@@ -134,6 +134,25 @@ public class PlanetTest {
         }
         assertTrue(working);
     }
+    @Test
+    public void constructorWithoutColorWithSizeIsWorking() {
+        boolean working = true;
+        String name = "poop";
+        double x = 1;
+        double y = 2;
+        double velx = 3;
+        double vely = 4;
+        double mass = 5;
+        int size = 6;
+        Planet p = new Planet(name, x, y, velx, vely, mass, size);
+        if (p.getPos().getX() != x && p.getPos().getX() != y) {
+            working = false;
+        }
+        if(p.getDrawSize() != size){
+            working = false;
+        }
+        assertTrue(working);
+    }
     
     @Test
     public void distanceIsWorking() {

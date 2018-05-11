@@ -71,12 +71,7 @@ public class PlanetDao implements Dao<Planet, Integer> {
      * @throws SQLException if SQL query fails
      */
     public Integer countSystems() throws SQLException {
-        ResultSet result = this.db.queryWithoutCollector("SELECT COUNT(*) as systems FROM System;");
-        Integer i = 0;
-        while (result.next()) {
-            i = Integer.parseInt(result.getString("systems"));
-        }
-        result.close();
+        Integer i = this.db.queryInteger("SELECT COUNT(*) as systems FROM System;", "systems");
         return i;
     }
 
@@ -87,12 +82,8 @@ public class PlanetDao implements Dao<Planet, Integer> {
      * @throws SQLException if SQL query fails
      */
     public Integer countPlanets() throws SQLException {
-        ResultSet result = this.db.queryWithoutCollector("SELECT COUNT(*) as planets FROM Planet;");
-        Integer i = 0;
-        while (result.next()) {
-            i = Integer.parseInt(result.getString("planets"));
-        }
-        result.close();
+        Integer i = this.db.queryInteger("SELECT COUNT(*) as planets FROM Planet;","planets");
+        
         return i;
     }
 
@@ -103,12 +94,7 @@ public class PlanetDao implements Dao<Planet, Integer> {
      * @throws SQLException if SQL query fails
      */
     public ArrayList<String> getSystems() throws SQLException {
-        ArrayList<String> systems = new ArrayList<>();
-        ResultSet result = this.db.queryWithoutCollector("SELECT name FROM system ORDER BY id;");
-        while (result.next()) {
-            systems.add(result.getString("name"));
-        }
-        result.close();
+        ArrayList<String> systems = this.db.queryStringList("SELECT name FROM system ORDER BY id;","name");
         return systems;
     }
 
@@ -121,10 +107,8 @@ public class PlanetDao implements Dao<Planet, Integer> {
      */
     public String getSystemName(int key) throws SQLException {
 
-        ResultSet result = this.db.queryWithoutCollector("SELECT name FROM system WHERE id = ?;", key);
-        String name = result.getString("name");
-        result.close();
-        return name;
+        ArrayList<String> list = this.db.queryStringList("SELECT name FROM system WHERE id = ?;", "name", key);
+        return list.get(0);
     }
 
     /**
@@ -134,12 +118,7 @@ public class PlanetDao implements Dao<Planet, Integer> {
      * @throws SQLException if SQL query fails
      */
     public ArrayList<String> getAllPlanetNames() throws SQLException {
-        ArrayList<String> names = new ArrayList<>();
-        ResultSet result = this.db.queryWithoutCollector("SELECT name FROM planet ORDER BY id;");
-        while (result.next()) {
-            names.add(result.getString("name"));
-        }
-        result.close();
+        ArrayList<String> names = this.db.queryStringList("SELECT name FROM planet ORDER BY id;","name");
         return names;
     }
 
@@ -157,7 +136,8 @@ public class PlanetDao implements Dao<Planet, Integer> {
      * Deletes a system from database
      *
      * @param name Name of the system to be deleted
-     * @throws SQLException
+     * @param system Id of the system to be deleted
+     * @throws SQLException If SQL query fails
      */
     public void deleteSystem(String name, Integer system) throws SQLException {
         this.db.update("DELETE FROM System WHERE name = ?;", name);
@@ -166,69 +146,62 @@ public class PlanetDao implements Dao<Planet, Integer> {
 
     /**
      * Finds id of a system with name
+     *
      * @param name The name of the system
      * @return id of the system as an integer
      * @throws SQLException if SQL query fails
      */
     public Integer getSystemId(String name) throws SQLException {
-        ResultSet result = this.db.queryWithoutCollector("SELECT id FROM System WHERE name = ?;", name);
-        Integer id = result.getInt("id");
-        result.close();
+        Integer id = this.db.queryInteger("SELECT id FROM System WHERE name = ?;","id", name);
         return id;
     }
-    
+
     /**
      * Gets the highest id from system table
+     *
      * @return the highest id as an integer
      * @throws SQLException If SQL query fails
      */
     public Integer getHighestSystemId() throws SQLException {
-        ResultSet result = this.db.queryWithoutCollector("SELECT id FROM System ORDER BY id DESC LIMIT 1;");
-        Integer id = result.getInt("id");
-        result.close();
+        Integer id = this.db.queryInteger("SELECT id FROM System ORDER BY id DESC LIMIT 1;", "id");
         return id;
     }
-    
+
     /**
      * Finds the id of a planet as an integer value with the planet name
+     *
      * @param name The name of the planet
      * @return The id of a planet as an integer
      * @throws SQLException if SQL query fails
      */
     private Integer getPlanetId(String name) throws SQLException {
-        ResultSet result = this.db.queryWithoutCollector("SELECT id FROM Planet WHERE name = ?;", name);
-        Integer id = result.getInt("id");
-        result.close();
+        Integer id = this.db.queryInteger("SELECT id FROM Planet WHERE name = ?;", "id", name);
         return id;
     }
-    
+
     /**
-     * Saves a planet to a system by saving planet and system id's to systemplanet table
+     * Saves a planet to a system by saving planet and system id's to
+     * systemplanet table
+     *
      * @param planet Name of the planet to be saved
      * @throws SQLException if SQL query fails
      */
-    public void savePlanetToSystem(String planet) throws SQLException{
+    public void savePlanetToSystem(String planet) throws SQLException {
         Integer planetId = getPlanetId(planet);
         Integer systemId = getHighestSystemId();
         this.db.update("INSERT INTO Systemplanet VALUES (?,?);", systemId, planetId);
     }
-    
+
     /**
      * Finds all planets from database that are not in the system
+     *
      * @param system Finds planets outside a system with this id
      * @return ArrayList of planets outside the system
      * @throws SQLException if SQL query fails
      */
-    public ArrayList<String> findAllPlanetsOutsideSystem(int system) throws SQLException{
-        ArrayList<String> planets = new ArrayList<>();
-        ResultSet rs = this.db.queryWithoutCollector("SELECT p.name AS name FROM Planet p WHERE p.id NOT IN (SELECT planet FROM Systemplanet WHERE system = ?) ORDER BY id;", system);
-        while(rs.next()){
-            planets.add(rs.getString("name"));
-        }
-        rs.close();
+    public ArrayList<String> findAllPlanetsOutsideSystem(int system) throws SQLException {
+        ArrayList<String> planets = this.db.queryStringList("SELECT p.name AS name FROM Planet p WHERE p.id NOT IN (SELECT planet FROM Systemplanet WHERE system = ?) ORDER BY id;","name", system);
         return planets;
     }
-    
-    
 
 }

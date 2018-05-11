@@ -37,7 +37,7 @@ public class PlanetDaoTest {
 
     @Before
     public void setUp() throws Exception {
-        db = new Database("jdbc:sqlite:database.db");
+        db = new Database("jdbc:sqlite:testDatabase.db");
         planetDao = new PlanetDao(db);
     }
 
@@ -110,4 +110,33 @@ public class PlanetDaoTest {
         assertEquals(name, "Inner planets");
 
     }
+    
+    @Test
+    public void findAlloutsideSystemIsWorking() throws SQLException {
+        ArrayList<String> planets = planetDao.findAllPlanetsOutsideSystem(1);
+        assertTrue(planets.get(0).equals("Uranus"));
+    }
+    @Test
+    public void getAllPlanetNamesIsWorking() throws SQLException {
+        ArrayList<String> planets = planetDao.getAllPlanetNames();
+        assertTrue(planets.get(0).equals("Sun") && planets.size() >= 12);
+    }
+    @Test
+    public void getHighestSystemIdIsWorking() throws SQLException {
+        int high = planetDao.getHighestSystemId();
+        int highest = high;
+        for(String i : planetDao.getSystems()){
+            int id = planetDao.getSystemId(i);
+            if(id > high){
+                highest = id;
+            }
+        }
+        assertTrue(highest == high);
+    }
+    @Test
+    public void getSystemIdIsWorking() throws SQLException {
+        Integer id = planetDao.getSystemId("Inner planets");
+        assertTrue(id == 1);
+    }
+    
 }

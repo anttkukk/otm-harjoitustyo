@@ -73,4 +73,10 @@ public class PlanetSystemTest {
         system.setPlanets(newPlanets);
         assertTrue(system.getPlanets().isEmpty());
     }
+    @Test
+    public void getFurthestReturnsNullIfThereAreNoPlanets() {
+        ArrayList<Planet> empty = new ArrayList<>();
+        system.setPlanets(empty);
+        assertTrue(system.getFurthest() == null);
+    }
 }
