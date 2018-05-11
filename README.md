@@ -23,6 +23,7 @@ Ohjelma on N-kappaleen simulaattori, joka simuloi planeettajärjestelmiä. Kun s
 
 [Viikko 6](https://github.com/anttkukk/otm-harjoitustyo/releases/tag/viikko6)
 
+[Loppupalautus](https://github.com/anttkukk/otm-harjoitustyo/releases/tag/Loppupalautus)
 
  ### Komentorivikomennot
  Testit suoritetaan komennolla 
