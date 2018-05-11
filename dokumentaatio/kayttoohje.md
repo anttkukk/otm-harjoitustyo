@@ -1,8 +1,8 @@
 # Käyttöohje
 
-Lataa tiedosto [PlanetSim.jar](https://github.com/anttkukk/otm-harjoitustyo/releases) sekä [tausta.jpg](https://github.com/anttkukk/otm-harjoitustyo/releases) ja [database.db](https://github.com/anttkukk/otm-harjoitustyo/releases)
+Lataa tiedosto [PlanetSim.jar](https://github.com/anttkukk/otm-harjoitustyo/releases) sekä [tausta.jpg](https://github.com/anttkukk/otm-harjoitustyo/releases)
 
-Jos database puuttuu, ohjelma luo kyseisen databasen suoritushakemistoon.
+Ohjelma luo databasen suoritushakemistoon.
 
 ## Ohjelman käynnistäminen
 
@@ -14,10 +14,22 @@ Ohjelma käynnistetään komennolla
 
 Ohjelma käynnistyy alkuruutuu:
 
-![alku](https://github.com/anttkukk/otm-harjoitustyo/blob/master/dokumentaatio/planeettasimukuva.png) 
+![alku](https://github.com/anttkukk/otm-harjoitustyo/blob/master/dokumentaatio/mainmenu.png) 
 
-Käyttäjä voi valita nyt systeemin listasta ja pinamalla change system nappia. Tämän jälkeen käyttäjä voi painaa Start! nappia ja aloittaa simulaation
+Käyttäjä voi valita nyt systeemin listasta ja painamalla change system nappia. Tämän jälkeen käyttäjä voi painaa Start! nappia ja aloittaa simulaation. Käyttäjä voi myös painaa Add system nappia lisätäkseen uuden systeemin sekä poistaa luotuja systeemeitä Delete system napilla. Valmiita systeemeitä Inner planets ja Sol system ei voi poistaa.
 
+Painaessaan Add system nappia käyttäjälle avautuu seuraava näkymä:
+![add system](https://github.com/anttkukk/otm-harjoitustyo/blob/master/dokumentaatio/addsystemscreen.png)
+
+Käyttäjä voi antaa nimen systeemillä ja painaa Create System! luodakseen systeemin. Systeemin nimi pitää olla uusi ja se ei saa olla tyhjä. Go back nappi palaa alkuruutuun.
+
+Create screen ruudun jälkeen käyttäjä voi painaa lisätä planeetoita systeemiin ja luoda planeetoita seuraavassa ruudussa:
+
+![add planets](https://github.com/anttkukk/otm-harjoitustyo/blob/master/dokumentaatio/addthingstosystemscreen.png)
+
+Käyttäjä voi lisätä nyt planeetan ruudun vasemmalta puolelta antamalla tiedot ja painamalla Add Planet! nappia. Tällöin uusi planeetta ilmestyy listaan oikealle puolelle. Käyttäjä voi nyt valita planeetoita listasta ja painaa Add Object! nappia jolloin kappale lisätään systeemiin ja häipyy listasta. Delete object poistaa kappaleita mutta valmiina olevia kappaleita ei voi poistaa. Kun käyttäjä on tyytyväinen hän voi painaa Finish system! nappia, jolloin käyttäjä palaa takaisin alku valikkoon ja luotu systeemi näkyy systeemien joukossa. 
+
+Kun käyttäjä painaa Start nappia aukeaa simulaatio:
 
 ![simulaatio](https://github.com/anttkukk/otm-harjoitustyo/blob/master/dokumentaatio/simulaatio.png)
 
