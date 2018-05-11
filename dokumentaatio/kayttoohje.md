@@ -47,7 +47,7 @@ Ohjelmassa on myös näppäimiä:
 | R | Palauttaa alkuperäisen kuvakulman |
 | , | Jakaa timestepin kymmenellä |
 | . | Kertoo timestepin kymmenellä |
-| Space | Palauttaa alkuperäisen timestepin |
+| Backspace | Palauttaa alkuperäisen timestepin |
 | P | Pausettaa/jatkaa simulaation |
 | B | Kääntää timestepin käänteiseksi |
 | 1 | Keskittää ruudun viimeisimpään kohteeseen |
