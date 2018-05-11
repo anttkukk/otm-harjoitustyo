@@ -1,7 +1,7 @@
 # Vaatimusmäärittely
 ## Sovelluksen tarkoitus
 
-Sovellus on n-kappaleen simulaatio, joka simuloi n-kappaleen tähtijärjestelmää. Sovelluksessa on oletuksena kaksi järjestelmää: Sisäplaneetat ja meidän aurinkokuntamme. Sisäplaneetta järjestelmässä on myös kuu sekä muutama komeetta mukaan lukien Churyumov-Gerasimenko, jonne Rosetta luotain taannoin laskeutui. Käyttäjällä on mahdollisuus lisätä systeemeitä valitsemalla luotujen planeettojen listoista. Tämän lisäksi käyttäjä voi lisätä uusia planeettoja. Käyttäjä voi myös poistaa lisättyjä systeemeitä ja planeettoja mutta ei oletuksena olleita, jotta ohjelmasta ei häviä kaikki kappaleet. 
+Sovellus on n-kappaleen simulaatio, joka simuloi n-kappaleen tähtijärjestelmää. Sovelluksessa on oletuksena kaksi järjestelmää: Sisäplaneetat ja meidän aurinkokuntamme. Sisäplaneetta järjestelmässä on myös kuu sekä muutama komeetta mukaan lukien Churyumov-Gerasimenko, jonne Rosetta luotain taannoin laskeutui. Käyttäjällä on mahdollisuus lisätä systeemeitä valitsemalla luotujen planeettojen listasta. Tämän lisäksi käyttäjä voi lisätä uusia planeettoja. Käyttäjä voi myös poistaa lisättyjä systeemeitä ja planeettoja mutta ei oletuksena olleita, jotta ohjelmasta ei häviä kaikki kappaleet. 
 
 ## Perusversion toiminnalisuus
 
