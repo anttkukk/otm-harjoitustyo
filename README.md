@@ -68,27 +68,4 @@ Jos jar-tiedosto on luotu, voi sitä ajaa komennolla
 
 `java -jar PlanetSim-1.0-SNAPSHOT.jar`
 
-Ohjelmassa käynnistyy heti simulaatio. Kuvaa voi liikuttaa painamalla pohjassa hiiren vasenta nappia ja vetämällä tai zoomata painamalla hiiren vasenta nappia ja vetämällä. Painamalla hiirellä planeettaa valitaan planeetta kohteeksi ja kamera keskittyy siihen. 
-
-Ohjelmassa on myös näppäimiä:
-
-
-
-| Näppäin | Toiminto |
-|---------|---------|
-| R | Palauttaa alkuperäisen kuvakulman |
-| , | Jakaa timestepin kymmenellä |
-| . | Kertoo timestepin kymmenellä |
-| Space | Palauttaa alkuperäisen timestepin |
-| P | Pausettaa/jatkaa simulaation |
-| B | Kääntää timestepin käänteiseksi |
-| 1 | Keskittää ruudun viimeisimpään kohteeseen |
-| vasen nuoli | vaihtaa targettia edelliseen |
-| oikea nuoli | vaihtaa targettia seuraavaan |
-| ctrl + vasen nuoli | vaihtaa subtargettia edelliseen |
-| ctrl + oikea nuoli | vaihtaa subtargettia seuraavaan |
-
-
-Painamalla C ohjelma siirtyy luomismoodiin, jossa hiiren painaminen luo uusia pieni massaisia pienkappaleita. Kappaleen nopeus määrätään hiiren painalluksen ja päästön välinen pikselimäärä kerrottuna -200.
-
-Klikkaamalla planeettaa tulee planeetasta target ja kamera keskittyy siihen. Klikkaamalla hiiren oikealla painikkeella toista kappaletta tulee toisesta kappaleesta subtarget ja kappaleiden välinen etäisyys ilmoitetaan.
+Katso [käyttöohje](https://github.com/anttkukk/otm-harjoitustyo/blob/master/dokumentaatio/kayttoohje.md)
