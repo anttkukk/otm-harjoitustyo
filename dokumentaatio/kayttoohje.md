@@ -29,6 +29,8 @@ Create screen ruudun jälkeen käyttäjä voi painaa lisätä planeetoita systee
 
 Käyttäjä voi lisätä nyt planeetan ruudun vasemmalta puolelta antamalla tiedot ja painamalla Add Planet! nappia. Tällöin uusi planeetta ilmestyy listaan oikealle puolelle. Käyttäjä voi nyt valita planeetoita listasta ja painaa Add Object! nappia jolloin kappale lisätään systeemiin ja häipyy listasta. Delete object poistaa kappaleita mutta valmiina olevia kappaleita ei voi poistaa. Kun käyttäjä on tyytyväinen hän voi painaa Finish system! nappia, jolloin käyttäjä palaa takaisin alku valikkoon ja luotu systeemi näkyy systeemien joukossa. 
 
+**On järkevää asettaa systeemille keskuskappale(Aurinko), jotta kappaleet eivät lähde liikkumaan pois.** Jos käyttäjä lisää oman eri massaisen keskuskappaleen on luultavaa että planeetat eivät pysy stabiileilla radoilla. Tämän lisäksi kahden keskuskappaleen laittaminen aiheuttaa mitä luultavimmin kummankin kappaleen paon systeemistä.
+
 Kun käyttäjä painaa Start nappia aukeaa simulaatio:
 
 ![simulaatio](https://github.com/anttkukk/otm-harjoitustyo/blob/master/dokumentaatio/simulaatio.png)
