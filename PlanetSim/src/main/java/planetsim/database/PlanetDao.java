@@ -82,8 +82,8 @@ public class PlanetDao implements Dao<Planet, Integer> {
      * @throws SQLException if SQL query fails
      */
     public Integer countPlanets() throws SQLException {
-        Integer i = this.db.queryInteger("SELECT COUNT(*) as planets FROM Planet;","planets");
-        
+        Integer i = this.db.queryInteger("SELECT COUNT(*) as planets FROM Planet;", "planets");
+
         return i;
     }
 
@@ -94,7 +94,7 @@ public class PlanetDao implements Dao<Planet, Integer> {
      * @throws SQLException if SQL query fails
      */
     public ArrayList<String> getSystems() throws SQLException {
-        ArrayList<String> systems = this.db.queryStringList("SELECT name FROM system ORDER BY id;","name");
+        ArrayList<String> systems = this.db.queryStringList("SELECT name FROM system ORDER BY id;", "name");
         return systems;
     }
 
@@ -118,7 +118,7 @@ public class PlanetDao implements Dao<Planet, Integer> {
      * @throws SQLException if SQL query fails
      */
     public ArrayList<String> getAllPlanetNames() throws SQLException {
-        ArrayList<String> names = this.db.queryStringList("SELECT name FROM planet ORDER BY id;","name");
+        ArrayList<String> names = this.db.queryStringList("SELECT name FROM planet ORDER BY id;", "name");
         return names;
     }
 
@@ -152,7 +152,7 @@ public class PlanetDao implements Dao<Planet, Integer> {
      * @throws SQLException if SQL query fails
      */
     public Integer getSystemId(String name) throws SQLException {
-        Integer id = this.db.queryInteger("SELECT id FROM System WHERE name = ?;","id", name);
+        Integer id = this.db.queryInteger("SELECT id FROM System WHERE name = ?;", "id", name);
         return id;
     }
 
@@ -200,7 +200,7 @@ public class PlanetDao implements Dao<Planet, Integer> {
      * @throws SQLException if SQL query fails
      */
     public ArrayList<String> findAllPlanetsOutsideSystem(int system) throws SQLException {
-        ArrayList<String> planets = this.db.queryStringList("SELECT p.name AS name FROM Planet p WHERE p.id NOT IN (SELECT planet FROM Systemplanet WHERE system = ?) ORDER BY id;","name", system);
+        ArrayList<String> planets = this.db.queryStringList("SELECT p.name AS name FROM Planet p WHERE p.id NOT IN (SELECT planet FROM Systemplanet WHERE system = ?) ORDER BY id;", "name", system);
         return planets;
     }
 
