@@ -6,11 +6,15 @@ Ohjelmassa on kolmitasoinen kerrosarkkitehtuuri. Pakkaus planetsim.ui sisältä�
 
 ### Käyttöliittymä
 
-Ohjelma sisältää tällähetkellä kaksi näkymää:
+Ohjelma sisältää 4 näkymää:
 
-* Aloitusruutu, jossa voi käynnistää simulaation tai vaihtaa systeemiä valitsemalla listasta systeemin ja painamalla change system nappia.
+* Aloitusruutu, jossa voi käynnistää simulaation tai vaihtaa systeemiä valitsemalla listasta systeemin ja painamalla change system nappia. Tämän lisäksi voi lisätä ja poistaa systeemejä.
 
 * Itse simulaatio, jossa kappaleet kiertävät keskuskappaletta ja käyttäjällä on käytettävissä erilaisia toiminnallisuuksia näppäimmistöllä.
+
+* Systeemin lisäys, jossa käyttäjä antaa systeemin nimen ja luo systeemin
+
+* Systeemiin planeettojen lisäys, jossa käyttäjä lisää planeettoja systeemiin ja luo uusia planeettoja databaseen
 
 Näkymät on toteutettu Scene olioina, joita vaihdetaan napeista vaihtamalla sovelluksen stagen sceneä. Käyttöliittymä on rakennettu ohjelmallisesti luokassa [planetsim.ui.PlanetSystemSimulation](https://github.com/anttkukk/otm-harjoitustyo/blob/master/PlanetSim/src/main/java/planetsim/ui/PlanetSystemSimulation.java).
 
