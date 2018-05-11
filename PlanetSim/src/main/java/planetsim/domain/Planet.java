@@ -142,7 +142,6 @@ public class Planet {
      */
     public Vector newPos(int t) {
 
-        //Vector newpos = this.pos.add(this.vel.multiply(1.0*t).add(this.oldacc.multiply(1.0/2.0*Math.pow(t, 2))));
         Vector newpos = this.pos.add(this.vel.multiply(1.0 * t));
 
         return newpos;
@@ -175,7 +174,6 @@ public class Planet {
      */
 
     public Vector newVelo(int t) {
-        //Vector newvelo = this.vel.add(this.acc.add(this.oldacc).multiply(t*1.0/2.0));
         Vector newvelo = this.vel.add(this.acc.multiply(t));
 
         return newvelo;
