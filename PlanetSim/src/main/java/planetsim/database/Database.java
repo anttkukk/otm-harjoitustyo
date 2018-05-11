@@ -106,13 +106,13 @@ public class Database {
 
             // executing commands
             for (String sentence : sentences) {
-                System.out.println("Running command >> " + sentence);
+                //System.out.println("Running command >> " + sentence);
                 st.executeUpdate(sentence);
             }
 
         } catch (Throwable t) {
             // If database excists, nothing will be done
-            System.out.println("Error >> " + t.getMessage());
+            //System.out.println("Error >> " + t.getMessage());
         }
     }
 

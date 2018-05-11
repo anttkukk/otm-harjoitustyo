@@ -87,6 +87,27 @@ public class Planet {
         this.name = name;
         this.drawSize = drawSize;
     }
+    /**
+     * Constructor for Planet with randomised colour but user set everything else
+     * @param name Name of the planet
+     * @param posX X-coordinate of the planet's position
+     * @param posY Y-coordinate of the planet's position
+     * @param velX X-coordinate of the planet's velocity
+     * @param velY Y-coordinate of the planet's velocity
+     * @param mass Mass of the Planet
+     * @param drawSize Draw size of the planet. Should carefully think if user wants to draw bigger than 5
+     */
+    public Planet(String name, double posX, double posY, double velX, double velY, double mass, int drawSize) {
+        this.pos = new Vector(posX, posY);
+        this.vel = new Vector(velX, velY);
+        this.mass = mass;
+        this.acc = new Vector(0.0, 0.0);
+        this.oldacc = new Vector(0.0, 0.0);
+        Random r = new Random();
+        this.color = Color.rgb(r.nextInt(255), r.nextInt(255), r.nextInt(255));
+        this.name = name;
+        this.drawSize = drawSize;
+    }
 
     public Vector getPos() {
         return pos;

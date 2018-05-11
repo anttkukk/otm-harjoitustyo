@@ -92,7 +92,6 @@ public class PlanetSystemSimulation extends Application {
     double changeX = 0;
     double changeY = 0;
     int circlesSize = 0;
-    ArrayList<String> systems = new ArrayList<>();
 
     public static void main(String[] args) {
         launch(args);
@@ -101,31 +100,6 @@ public class PlanetSystemSimulation extends Application {
     @Override
     public void start(Stage window) throws Exception {
 
-        //Planet name change to body? because sun, moon and chury are not planets
-//        Planet sun = new Planet("Sun", 0, 0, 0, 0, 1.989E30, Color.YELLOW, 4);
-//        //Planet earth = new Planet("Earth", 7.649815710400691E10, 1.2825871174194992E11, -25608.972746907584, 15340.707015973465, 5.974E24, Color.BLUE);
-//        Planet earth = new Planet("Earth", 1.521E11, 0, 0, 29290, 5.97237E24, Color.BLUE, 3);
-//        Planet mars = new Planet("Mars", 2.279392E11, 0, 0, 24077, 6.4171E23, Color.TOMATO, 3);
-//        Planet moon = new Planet("Moon", 1.52484399E11, 0, 0, 30312, 7.342E22, Color.GREY, 2);
-//        Planet venus = new Planet("Venus", 1.08208E11, 0, 0, 35020, 4.8675E24, Color.GOLDENROD, 3);
-//        Planet mercury = new Planet("Mercury", 5.790905E10, 0, 0, 47362, 3.3011E23, Color.GREY, 3);
-//        Planet jupiter = new Planet("Jupiter", 7.78412E11, 0, 0, 13070, 1.899E27, Color.LIGHTSALMON, 3);
-//        Planet callisto = new Planet("Callisto", 7.802947E11, 0, 0, 21274, 1.075938E23, Color.GREY, 3);
-//        //Planet tuhoaja = new Planet(1E12, 0, 0, 10000, 7.322E29);
-//
-//        Planet chury = new Planet("67P/Churyumov–Gerasimenko", 1.8598E11, 0, 0, 34220, 0);
-//        Planet fast = new Planet("Unknown Comet", 0, 2.99E10, -89353, 0, 0);
-//        planets.add(sun);
-//        planets.add(earth);
-//        planets.add(mars);
-//        planets.add(moon);
-//        planets.add(chury);
-//        planets.add(fast);
-//        planets.add(venus);
-//        planets.add(mercury);
-//        planets.add(jupiter);
-//        //planets.add(callisto);
-//        //planets.add(tuhoaja);
         Canvas canvas = new Canvas(width, height);
         GraphicsContext drawer = canvas.getGraphicsContext2D();
         BorderPane layout = new BorderPane();
@@ -135,7 +109,9 @@ public class PlanetSystemSimulation extends Application {
         planetDao = new PlanetDao(database);
 
         starsystem = getPlanets(layout);
-        standard = starsystem.getFurthest().getPos().length() / 300;
+        if (starsystem.getFurthest() != null) {
+            standard = starsystem.getFurthest().getPos().length() / 300;
+        }
         ogStandard = standard;
         days = 0.0;
         AnimationTimer timer = new AnimationTimer() {
@@ -242,149 +218,53 @@ public class PlanetSystemSimulation extends Application {
             }
 
         };
-        //layout.getChildren().addAll(circles);
 
-        //Start screen and buttons 
-//        VBox startBox = new VBox();
-//        startBox.setAlignment(Pos.CENTER);
-//        startBox.setSpacing(5);
-//        startBox.setPadding(new Insets(50, 200, 0, 0));
-//        //backgroundImage
-//        startBox.setStyle("-fx-background-image: url(" + PLANETURL + ")");
-        //startBox.setStyle("-fx-background-color: darksalmon");
-//        Button startBut = new Button("start!");
-//        Button systemChange = new Button("Change system");
-//        Label label = new Label("Selected system: " + planetDao.getSystemName(system));
-//        label.setTextFill(Color.AZURE);
-//        Label changeWarning = new Label("System will reset on system change!");
-//        changeWarning.setTextFill(Color.CORAL);
-//        BorderPane startLayout = new BorderPane();
-        Button nappi = new Button("Back!");
-        Button toinen = new Button("kakka");
-        //layout.getChildren().add(nappi);
+        Button back = new Button("Back!");
 
-//        systems = planetDao.getSystems();
-//        ListView<String> list = new ListView<>();
-//        ObservableList<String> items = FXCollections.observableArrayList(systems);
-//        list.setItems(items);
-//        list.setMaxWidth(150.0);
-//        list.setPrefHeight(70);
-//        list.getSelectionModel().select(0);
-//        HBox addAndDeleteSystemBox = new HBox();
-//        addAndDeleteSystemBox.setSpacing(10);
-//        addAndDeleteSystemBox.setAlignment(Pos.CENTER);
-//        Button newSystem = new Button("Add system");
-//        Button deleteSystem = new Button("Delete system");
-//        addAndDeleteSystemBox.getChildren().addAll(newSystem, deleteSystem);
         VBox changeBox = new VBox();
         changeBox.setAlignment(Pos.CENTER);
         changeBox.setStyle("-fx-background-color: darkgray");
         Label addSysLabel = new Label("Give system name:");
         TextField textfield = new TextField();
         textfield.setMaxWidth(150);
-        Label addSysWarning = new Label("Name can't be empty!");
+        Label addSysWarning = new Label("Name must be unique and can't be empty!");
         Button addButton = new Button("Create System!");
-        changeBox.getChildren().addAll(addSysLabel, textfield, addSysWarning, addButton);
+        Button returnToStart = new Button("Go back");
+        changeBox.getChildren().addAll(addSysLabel, textfield, addSysWarning, addButton, returnToStart);
 
         BorderPane addSystem = new BorderPane();
         addSystem.setCenter(changeBox);
         Scene systemAdd = new Scene(addSystem, width, height);
 
-        BorderPane addPlanets = new BorderPane();
-        VBox planetBox = new VBox();
-        planetBox.setAlignment(Pos.CENTER);
-        planetBox.setStyle("-fx-background-color: darkgray");
-        ArrayList<String> planetNames = planetDao.getAllPlanetNames();
-        ListView<String> nameList = new ListView<>();
-        ObservableList<String> nameItems = FXCollections.observableArrayList(planetNames);
-        nameList.setItems(nameItems);
-        nameList.setMaxWidth(400);
-        nameList.setPrefHeight(200);
-        nameList.getSelectionModel().select(0);
-        Label chooseLabel = new Label("Choose object to system!");
-        HBox addAndDone = new HBox();
-        addAndDone.setAlignment(Pos.CENTER);
-        addAndDone.setSpacing(10);
-        Button addPlanet = new Button("Add Object!");
-        Button finishSystem = new Button("Finish system!");
-        addAndDone.getChildren().addAll(addPlanet, finishSystem);
-        planetBox.getChildren().addAll(chooseLabel, nameList, addAndDone);
-        addPlanets.setCenter(planetBox);
-        Scene planetScene = new Scene(addPlanets, width, height);
-        addButton.setOnAction(e -> {
-            if (!textfield.getText().trim().isEmpty()) {
-                try {
-                    planetDao.addSystem(textfield.getText());
-                    window.setScene(planetScene);
-                } catch (SQLException ex) {
-                    Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-
-//        newSystem.setOnAction(e -> {
-//            window.setScene(systemAdd);
-//        });
-//        deleteSystem.setOnAction(e -> {
-//            try {
-//                if (list.getSelectionModel().getSelectedIndex() > 1) {
-//                    planetDao.deleteSystem(list.getSelectionModel().getSelectedItem());
-//                }
-//            } catch (SQLException ex) {
-//                Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        });
         HBox hox = new HBox();
         hox.setLayoutX(100);
         hox.setLayoutY(45);
-        nappi.setMinWidth(75);
-        hox.getChildren().add(nappi);
+        back.setMinWidth(75);
+        hox.getChildren().add(back);
         layout.getChildren().add(hox);
         Scene scene = new Scene(layout);
 
-//        startBut.setOnAction(e -> {
-//            window.setScene(scene);
-//            timestep = ogTimestep;
-//            followId = 0;
-//            resetScreen();
-//            timer.start();
-//        });
-//        systemChange.setOnAction(e -> {
-//            try {
-//                changeSystem(list.getSelectionModel().getSelectedIndex());
-//            } catch (SQLException ex) {
-//                Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//
-//            try {
-//                label.setText("Selected system: " + planetDao.getSystemName(system));
-//            } catch (SQLException ex) {
-//                Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//
-//            try {
-//                starsystem = getPlanets(layout);
-//            } catch (Exception ex) {
-//                Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            standard = starsystem.getFurthest().getPos().length() / 300;
-//            ogStandard = standard;
-//            days = 0.0;
-//
-//        });
-//
-//        startBox.getChildren().addAll(startBut, systemChange, label, changeWarning, list, addAndDeleteSystemBox);
-//        startLayout.setCenter(startBox);
-//        timestep = 0;
-//        Scene startScreen = new Scene(startLayout, width, height);
-        finishSystem.setOnAction(e -> {
+        //Add system screen buttons
+        addButton.setOnAction(e -> {
+            try {
+                if (!textfield.getText().trim().isEmpty() && !planetDao.getSystems().contains(textfield.getText().trim())) {
+                    planetDao.addSystem(textfield.getText());
+                    window.setScene(setAddPlanetsScreen(window, systemAdd, scene, timer, layout));
+                    textfield.clear();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        returnToStart.setOnAction(e -> {
             try {
                 window.setScene(setStartScreen(window, systemAdd, scene, timer, layout));
             } catch (SQLException ex) {
                 Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        nappi.setOnAction(e -> {
+
+        back.setOnAction(e -> {
             try {
                 window.setScene(setStartScreen(window, systemAdd, scene, timer, layout));
             } catch (SQLException ex) {
@@ -394,19 +274,8 @@ public class PlanetSystemSimulation extends Application {
             timestep = 0;
             timer.stop();
         });
-        toinen.setOnAction(e -> {
-            spoopy = !spoopy;
-        });
 
-        HBox hbox = new HBox();
-        hbox.setPadding(new Insets(1, 1, 1, 1));
-        hbox.setSpacing(10);
-        hbox.setStyle("-fx-background-color: #336699;");
-        //hbox.getChildren().addAll(nappi, toinen);
-        StackPane stackpane = new StackPane();
-        //layout.setTop(hbox);
 //        start screen:
-
         window.setScene(setStartScreen(window, systemAdd, scene, timer, layout));
 
         window.show();
@@ -421,53 +290,213 @@ public class PlanetSystemSimulation extends Application {
 
     }
 
+    private Scene setAddPlanetsScreen(Stage window, Scene systemAdd, Scene scene, AnimationTimer timer, BorderPane layout) throws SQLException {
+        VBox planetInfo = new VBox();
+        planetInfo.setSpacing(15);
+        planetInfo.setAlignment(Pos.CENTER_LEFT);
+        planetInfo.setStyle("-fx-background-color: darkgray");
+        Label planetAdd = new Label("Give planet information!");
+
+        HBox addPlanetBox = new HBox();
+
+        VBox names = new VBox();
+        names.setSpacing(16);
+        VBox texts = new VBox();
+        texts.setSpacing(5);
+
+        Label nameLabel = new Label("Name (Unique and not empty):");
+        TextField nameField = new TextField();
+        nameField.setMaxWidth(200);
+
+        Label xPos = new Label("x-coordinate of the planet(in AU):   ");
+        TextField xPosField = new TextField();
+        xPosField.setMaxWidth(200);
+
+        Label yPos = new Label("y-coordinate of the planet(in AU):   ");
+        TextField yPosField = new TextField();
+        yPosField.setMaxWidth(200);
+
+        Label xVel = new Label("x-coordinate of the velocity(in m/s): ");
+        TextField xVelField = new TextField();
+        xVelField.setMaxWidth(200);
+
+        Label yVel = new Label("y-coordinate of the velocity(in m/s): ");
+        TextField yVelField = new TextField();
+        yVelField.setMaxWidth(200);
+
+        Label mass = new Label("Mass (kg): ");
+        TextField massField = new TextField();
+        massField.setMaxWidth(200);
+
+        Label size = new Label("Drawsize (1-5):");
+        TextField sizeField = new TextField();
+        sizeField.setMaxWidth(200);
+
+        names.getChildren().addAll(nameLabel, xPos, yPos, xVel, yVel, mass, size);
+        texts.getChildren().addAll(nameField, xPosField, yPosField, xVelField, yVelField, massField, sizeField);
+
+        Button addPlanetButton = new Button("Add planet!");
+        addPlanetButton.setOnAction(e -> {
+            String name = nameField.getText();
+            String posX = xPosField.getText();
+            String posY = yPosField.getText();
+            String velX = xVelField.getText();
+            String velY = yVelField.getText();
+            String massStr = massField.getText();
+            String sizeStr = sizeField.getText();
+            Planet p;
+            try {
+                p = newPlanet(name, posX, posY, velX, velY, massStr, sizeStr);
+                if (p != null) {
+                    planetDao.save(p);
+                    window.setScene(setAddPlanetsScreen(window, systemAdd, scene, timer, layout));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        });
+        addPlanetBox.getChildren().addAll(names, texts);
+        Label disclaimer = new Label("Give all values in correct form: \nname = String, drawsize = integer, rest are double");
+        Label auExplain = new Label("AU = average distance between Earth and Sun. \n1 AU = 1.496E11 meters");
+        planetInfo.getChildren().addAll(planetAdd, addPlanetBox, addPlanetButton, disclaimer, auExplain);
+        planetInfo.setPadding(new Insets(0, 0, 0, width / 10));
+
+        BorderPane addPlanets = new BorderPane();
+        VBox planetBox = new VBox();
+        planetBox.setAlignment(Pos.CENTER);
+        planetBox.setPadding(new Insets(0, width / 6, 0, 0));
+        planetBox.setStyle("-fx-background-color: darkgray");
+        ArrayList<String> planetNames = planetDao.findAllPlanetsOutsideSystem(planetDao.getHighestSystemId());
+        ListView<String> nameList = new ListView<>();
+        ObservableList<String> nameItems = FXCollections.observableArrayList(planetNames);
+        nameList.setItems(nameItems);
+        nameList.setMaxWidth(400);
+        nameList.setPrefHeight(200);
+        nameList.getSelectionModel().select(0);
+        Label chooseLabel = new Label("Choose object to system!");
+        HBox addAndDel = new HBox();
+        addAndDel.setAlignment(Pos.CENTER);
+        addAndDel.setSpacing(10);
+        Button addPlanet = new Button("Add Object!");
+        Button deletePlanet = new Button("Delete Object");
+        Label deleteWarning = new Label("Default Objects cannot be deleted!");
+        Button finishSystem = new Button("Finish system!");
+        addAndDel.getChildren().addAll(addPlanet, deletePlanet);
+        planetBox.getChildren().addAll(chooseLabel, nameList, addAndDel, deleteWarning, finishSystem);
+        planetBox.setSpacing(5);
+
+        addPlanets.setCenter(planetInfo);
+        addPlanets.setRight(planetBox);
+        addPlanet.setOnAction(e -> {
+            try {
+                planetDao.savePlanetToSystem(nameList.getSelectionModel().getSelectedItem());
+                window.setScene(setAddPlanetsScreen(window, systemAdd, scene, timer, layout));
+            } catch (SQLException ex) {
+                Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        deletePlanet.setOnAction(e -> {
+            try {
+                planetDao.delete(nameList.getSelectionModel().getSelectedItem());
+                window.setScene(setAddPlanetsScreen(window, systemAdd, scene, timer, layout));
+            } catch (SQLException ex) {
+                Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
+        finishSystem.setOnAction(e -> {
+            try {
+                window.setScene(setStartScreen(window, systemAdd, scene, timer, layout));
+            } catch (SQLException ex) {
+                Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        return new Scene(addPlanets, width, height);
+    }
+
+    private Planet newPlanet(String name, String posX, String posY, String velX, String velY, String mass, String size) throws SQLException {
+        ArrayList<String> names = new ArrayList<>();
+        for (Planet p : planetDao.findAll()) {
+            names.add(p.getName());
+        }
+        if (name.trim().isEmpty() || names.contains(name.trim())) {
+            return null;
+        }
+        Double doublePosX = 1.496E11;
+        Double doublePosY = 1.496E11;
+        Double doubleVelX;
+        Double doubleVelY;
+        Double doubleMass;
+        Integer drawSize;
+        try {
+            doublePosX = doublePosX * Double.parseDouble(posX);
+            doublePosY = doublePosY * Double.parseDouble(posY);
+            doubleVelX = Double.parseDouble(velX);
+            doubleVelY = Double.parseDouble(velY);
+            doubleMass = Double.parseDouble(mass);
+            drawSize = Integer.parseInt(size);
+        } catch (Exception e) {
+            return null;
+        }
+        if (drawSize < 1) {
+            drawSize = 1;
+        } else if (drawSize > 5) {
+            drawSize = 5;
+        }
+        return new Planet(name, doublePosX, doublePosY, doubleVelX, doubleVelY, doubleMass, drawSize);
+    }
+
     private Scene setStartScreen(Stage window, Scene systemAdd, Scene scene, AnimationTimer timer, BorderPane layout) throws SQLException {
         BorderPane startLayout = new BorderPane();
         VBox startBox = new VBox();
         startBox.setAlignment(Pos.CENTER);
         startBox.setSpacing(5);
         startBox.setPadding(new Insets(50, 200, 0, 0));
-        
+
         //backgroundImage
         startBox.setStyle("-fx-background-image: url(" + PLANETURL + ")");
-        
+
         Button startBut = new Button("start!");
         Button systemChange = new Button("Change system");
         Label label = new Label("Selected system: " + planetDao.getSystemName(system));
         label.setTextFill(Color.AZURE);
         Label changeWarning = new Label("System will reset on system change!");
         changeWarning.setTextFill(Color.CORAL);
-        
-        systems = planetDao.getSystems();
+
+        ArrayList<String> systems = planetDao.getSystems();
         ListView<String> list = new ListView<>();
         ObservableList<String> items = FXCollections.observableArrayList(systems);
         list.setItems(items);
         list.setMaxWidth(150.0);
         list.setPrefHeight(70);
         list.getSelectionModel().select(0);
-        
+
         HBox addAndDeleteSystemBox = new HBox();
         addAndDeleteSystemBox.setSpacing(10);
         addAndDeleteSystemBox.setAlignment(Pos.CENTER);
         Button newSystem = new Button("Add system");
         Button deleteSystem = new Button("Delete system");
         addAndDeleteSystemBox.getChildren().addAll(newSystem, deleteSystem);
-        
+
         newSystem.setOnAction(e -> {
             window.setScene(systemAdd);
         });
-        
+
         deleteSystem.setOnAction(e -> {
             try {
                 if (list.getSelectionModel().getSelectedIndex() > 1) {
-                    planetDao.deleteSystem(list.getSelectionModel().getSelectedItem());
+                    if (system == list.getSelectionModel().getSelectedIndex() + 1) {
+                        system = 1;
+                    }
+                    planetDao.deleteSystem(list.getSelectionModel().getSelectedItem(), planetDao.getSystemId(list.getSelectionModel().getSelectedItem()));
                     window.setScene(setStartScreen(window, systemAdd, scene, timer, layout));
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        
+
         startBut.setOnAction(e -> {
             window.setScene(scene);
             timestep = ogTimestep;
@@ -493,7 +522,9 @@ public class PlanetSystemSimulation extends Application {
             } catch (Exception ex) {
                 Logger.getLogger(PlanetSystemSimulation.class.getName()).log(Level.SEVERE, null, ex);
             }
-            standard = starsystem.getFurthest().getPos().length() / 300;
+            if (starsystem.getFurthest() != null) {
+                standard = starsystem.getFurthest().getPos().length() / 300;
+            }
             ogStandard = standard;
             days = 0.0;
 
@@ -647,7 +678,7 @@ public class PlanetSystemSimulation extends Application {
                 timestep = timestep * 5;
             }
             if (e.getCode() == KeyCode.COMMA) {
-                if (timestep > 50) {
+                if (Math.abs(timestep) > 50) {
                     timestep = timestep / 5;
                 }
             }

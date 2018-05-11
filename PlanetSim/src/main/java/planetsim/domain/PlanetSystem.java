@@ -51,6 +51,9 @@ public class PlanetSystem {
      */
 
     public Planet getFurthest() {
+        if(planets.isEmpty()){
+            return null;
+        }
         double far = 0;
         int i = 0;
         int farIndex = 0;
