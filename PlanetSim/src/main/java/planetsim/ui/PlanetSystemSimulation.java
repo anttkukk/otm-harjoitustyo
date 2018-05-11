@@ -49,9 +49,6 @@ import javafx.stage.Stage;
 
 public class PlanetSystemSimulation extends Application {
 
-    private static final String SPACEURL = "file:images/avaruustausta.jpg";
-    private static final String SKELEURL = "file:images/skeleton.gif";
-    private static final String USSRURL = "file:images/ussr.png";
     private static final String PLANETURL = "file:tausta.jpg";
     private Database database;
     private PlanetDao planetDao;
@@ -78,7 +75,6 @@ public class PlanetSystemSimulation extends Application {
     Integer normalTimestep = timestep;
     boolean follow = false;
     boolean subTarget = false;
-    boolean spoopy = false;
     boolean dtWarning = false;
     ArrayList<Circle> circles = new ArrayList<>();
     int followId = 1;
@@ -115,13 +111,8 @@ public class PlanetSystemSimulation extends Application {
         ogStandard = standard;
         days = 0.0;
         AnimationTimer timer = new AnimationTimer() {
-            long prev = 0;
-            Image space = new Image(SPACEURL);
-            Image uusr = new Image(SKELEURL);
-            Image ussr = new Image(USSRURL);
-
-            double kerroin = 1E6;
-
+            long prev = 0;            
+            
             @Override
             public void handle(long now) {
                 if (now - prev < 1E7) {
@@ -130,12 +121,8 @@ public class PlanetSystemSimulation extends Application {
 
                 days = days + 1.0 * timestep / (60 * 60 * 24);
 
-                if (spoopy) {
-                    drawer.drawImage(space, 0, 0, width, height);
-                } else {
-                    drawer.setFill(Color.BLACK);
-                    drawer.fillRect(0, 0, width * height, width * height);
-                }
+                drawer.setFill(Color.BLACK);
+                drawer.fillRect(0, 0, width * height, width * height);
 
                 drawer.setFill(Color.WHITE);
                 double dt = timestep / 60.0;
@@ -193,16 +180,10 @@ public class PlanetSystemSimulation extends Application {
                 int i = 0;
                 for (Planet p : planets) {
                     drawer.setFill(p.getColor());
-                    if (p.getMass() == 1.899E27 && spoopy) {
 
-                        drawer.drawImage(ussr, midWidth + p.getPos().getX() / standard, midHeight + p.getPos().getY() / standard, 430, 400);
+                    circles.get(i).setCenterX(midWidth + p.getPos().getX() / standard);
+                    circles.get(i).setCenterY(midHeight + p.getPos().getY() / standard);
 
-                    } else if (spoopy) {
-                        drawer.drawImage(uusr, midWidth + p.getPos().getX() / standard, midHeight + p.getPos().getY() / standard, 300, 300);
-                    } else {
-                        circles.get(i).setCenterX(midWidth + p.getPos().getX() / standard);
-                        circles.get(i).setCenterY(midHeight + p.getPos().getY() / standard);
-                    }
                     i++;
                 }
                 this.prev = now;
@@ -680,14 +661,6 @@ public class PlanetSystemSimulation extends Application {
             if (e.getCode() == KeyCode.DIGIT1) {
                 follow = !follow;
             }
-//            if (e.getCode() == KeyCode.S) {
-//                if (!spoopy) {
-//                    layout.getChildren().removeAll(circles);
-//                } else if (spoopy) {
-//                    layout.getChildren().addAll(circles);
-//                }
-//                spoopy = !spoopy;
-//            }
             if (e.getCode() == KeyCode.C) {
                 createMode = !createMode;
             }
