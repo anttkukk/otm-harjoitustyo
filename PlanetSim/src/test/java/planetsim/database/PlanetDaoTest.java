@@ -87,7 +87,7 @@ public class PlanetDaoTest {
     }
 
     @Test
-    public void addingAndDeletingWorks() throws SQLException {
+    public void addingAndDeletingPlanetsWorks() throws SQLException {
         Integer original = planetDao.countPlanets();
         Planet planet = new Planet("test123", 0, 0, 0, 0, 0);
         planetDao.save(planet);
@@ -137,6 +137,16 @@ public class PlanetDaoTest {
     public void getSystemIdIsWorking() throws SQLException {
         Integer id = planetDao.getSystemId("Inner planets");
         assertTrue(id == 1);
+    }
+    @Test
+    public void addingAndDeletingSystemsWorks() throws SQLException {
+        Integer original = planetDao.countSystems();
+        planetDao.addSystem("test");
+        Integer added = planetDao.countSystems();
+        int id = planetDao.getSystemId("test");
+        planetDao.deleteSystem("test", id);
+        Integer end = planetDao.countSystems();
+        assertTrue(original.equals(end) && original < added);
     }
     
 }
