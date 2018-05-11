@@ -19,4 +19,4 @@
 | 10.5      | 6h | Lisätty ominaisuus lisätä uusi systeemi ja sinne planeetoita listalta, sekä poistaa luotuja systemeeitä |
 | 11.5      | 3h-> | Lisätty ominaisuus lisätä ja poistaa planeetoita systeemiä luodessa |
 |   |     |    | 
-| Yhteensä: | 44h |     |
+| Yhteensä: | 50+3h |     |
