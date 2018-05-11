@@ -17,6 +17,6 @@
 | 29.4      | 3h | Korjattu vikoja timestepin kanssa ja lisätty ominaisuus valita systeemi listasta |
 | 3.5       | 5h | Tehty JavaDocceja luokille, päivitetty arkkitehtuuri.md ja siinä oleva luokka kaavio ja tehty käyttö ohje. Tämän lisäksi testejä ja muuta pikkusälää |
 | 10.5      | 6h | Lisätty ominaisuus lisätä uusi systeemi ja sinne planeetoita listalta, sekä poistaa luotuja systemeeitä |
-| 11.5      | 3h-> | Lisätty ominaisuus lisätä ja poistaa planeetoita systeemiä luodessa |
+| 11.5      | 10h | Lisätty ominaisuus lisätä ja poistaa planeetoita systeemiä luodessa. Tehty testaus dokumentti sekä testejä puuttuville metodeille. Muokattu database ja planetDao luokkien toiminnallisuutta paremmaksi. Päivitetty käyttöohje ja vaatimusmäärittely|
 |   |     |    | 
-| Yhteensä: | 50+3h |     |
+| Yhteensä: | 60h |     |
